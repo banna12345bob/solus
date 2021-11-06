@@ -1,0 +1,3 @@
+﻿  Application.cpp
+D:\Github\Space-Pirates-Game\Sandbox\src\Application.cpp(11,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Sandbox.vcxproj -> D:\Github\Space-Pirates-Game\compile\bin\Debug-x64\Sandbox\Sandbox.exe
