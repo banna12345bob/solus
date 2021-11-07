@@ -1,2 +1,2 @@
-﻿MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
-D:\Github\Space-Pirates-Game\\compile\bin\Debug-x64\Sandbox\Sandbox.exe : fatal error LNK1120: 1 unresolved externals
+﻿  SandboxApp.cpp
+  Sandbox.vcxproj -> D:\Github\Space-Pirates-Game\compile\bin\Debug-x64\Sandbox\Sandbox.exe
