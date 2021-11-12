@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef EN_PLATFROM_WINDOWS
+#ifdef EN_PLATFORM_WINDOWS
 	#ifdef EN_BUILD_DLL
 		#define ENGINE_API __declspec(dllexport)
 	#else
