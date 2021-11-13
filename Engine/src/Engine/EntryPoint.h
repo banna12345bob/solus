@@ -7,9 +7,8 @@ extern Engine::Application* Engine::CreateApplication();
 int main(int argc, char** argv)
 {
 	Engine::Log::Init();
-	EN_CORE_WARN("Logging Initialised");
-	int a = 5;
-	EN_INFO("Build successful Var={0}", a);
+	EN_CORE_INFO("Engine Initialised");
+	EN_TRACE("Build successful");
 
 	auto app = Engine::CreateApplication();
 	app->Run();
