@@ -1,4 +1,4 @@
-# Space-Pirates-Game
+# Space Pirates Game
 This is a new game I'm working on
 
 > Sources
