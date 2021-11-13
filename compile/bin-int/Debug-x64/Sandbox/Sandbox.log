@@ -1,2 +1,6 @@
 ﻿  SandboxApp.cpp
+D:\Github\Space-Pirates-Game\Engine\src\Engine\Log.h(18,44): warning C4251: 'Engine::Log::s_CoreLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Engine::Log'
+D:\Github\Space-Pirates-Game\Engine\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+D:\Github\Space-Pirates-Game\Engine\src\Engine\Log.h(19,44): warning C4251: 'Engine::Log::s_ClientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Engine::Log'
+D:\Github\Space-Pirates-Game\Engine\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
   Sandbox.vcxproj -> D:\Github\Space-Pirates-Game\compile\bin\Debug-x64\Sandbox\Sandbox.exe

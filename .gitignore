@@ -1,4 +1,5 @@
 
+<<<<<<< Updated upstream
 .vs/Engine/v17/Current/Solution.VC.db-wal
 .vs/Engine/v17/Current/Solution.VC.db-shm
 .vs/Engine/v17/Current/Solution.VC.db
@@ -12,3 +13,8 @@
 .vs/Engine/v17/Current/Browse.VC.db
 .vs/Engine/v17/Current/ipch/AutoPCH/1c3737be2efa4fee/SANDBOXAPP.ipch
 .vs/Engine/v17/Current/Solution.VC.db
+=======
+.vs/
+.git/
+Engine/vendor
+>>>>>>> Stashed changes
