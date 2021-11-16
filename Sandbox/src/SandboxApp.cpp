@@ -1,6 +1,6 @@
-#include <Engine.h>
+#include <Solus.h>
 
-class Sandbox : public Engine::Application
+class Sandbox : public Solus::Application
 {
 public:
 	Sandbox()
@@ -13,7 +13,7 @@ public:
 	}
 };
 
-Engine::Application* Engine::CreateApplication()
+Solus::Application* Solus::CreateApplication()
 {
 	return new Sandbox();
 }

@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\Github\Space-Pirates-Game\compile\bin\Debug-x64\Engine\Engine.dll</FullPath>
+      <FullPath>D:\Github\Space-Pirates-Game\compile\bin\Debug-x64\Solus\Solus.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
       <FullPath>D:\Github\Space-Pirates-Game\compile\bin\Debug-x64\Sandbox\Sandbox.exe</FullPath>
