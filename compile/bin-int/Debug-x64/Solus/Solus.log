@@ -1,6 +1,9 @@
 ﻿  Log.cpp
-D:\Github\Space-Pirates-Game\Solus\src\Solus\Log.h(20,44): warning C4251: 'Solus::Log::s_CoreLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Solus::Log'
-D:\Github\Space-Pirates-Game\Solus\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
-D:\Github\Space-Pirates-Game\Solus\src\Solus\Log.h(21,44): warning C4251: 'Solus::Log::s_ClientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Solus::Log'
-D:\Github\Space-Pirates-Game\Solus\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
-  Solus.vcxproj -> D:\Github\Space-Pirates-Game\compile\bin\Debug-x64\Solus\Solus.dll
+D:\Github\Solus\Solus\src\Solus\Log.h(20,44): warning C4251: 'Solus::Log::s_CoreLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Solus::Log'
+D:\Github\Solus\Solus\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+D:\Github\Solus\Solus\src\Solus\Log.h(21,44): warning C4251: 'Solus::Log::s_ClientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Solus::Log'
+D:\Github\Solus\Solus\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+  Application.cpp
+  Generating Code...
+     Creating library D:\Github\Solus\\compile\bin\Debug-x64\Solus\Solus.lib and object D:\Github\Solus\\compile\bin\Debug-x64\Solus\Solus.exp
+  Solus.vcxproj -> D:\Github\Solus\compile\bin\Debug-x64\Solus\Solus.dll

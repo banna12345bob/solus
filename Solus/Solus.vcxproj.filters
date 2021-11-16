@@ -9,10 +9,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="Src">
+      <UniqueIdentifier>{0870b1b6-7658-4ca3-8e22-86ae71bc8dad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="src\Solus.h" />
-    <ClInclude Include="src\Solus\Log.h">
-      <Filter>Src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Solus\Application.h">
       <Filter>Src</Filter>
     </ClInclude>
@@ -22,10 +24,8 @@
     <ClInclude Include="src\Solus\EntryPoint.h">
       <Filter>Src</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Src">
-      <UniqueIdentifier>{0870b1b6-7658-4ca3-8e22-86ae71bc8dad}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="src\Solus\Log.h">
+      <Filter>Src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
