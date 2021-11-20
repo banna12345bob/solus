@@ -2,3 +2,7 @@
 .vs/
 .git/
 compile/
+*.vcxproj
+*sln
+*filters
+*user
