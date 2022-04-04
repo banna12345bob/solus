@@ -18,6 +18,9 @@ project "Solus"
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "supch.h"
+	pchsource "Solus/src/supch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

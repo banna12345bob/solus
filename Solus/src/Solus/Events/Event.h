@@ -1,9 +1,7 @@
 #pragma once
 
+#include "supch.h"
 #include "Solus/Core.h"
-
-#include <string>
-#include <functional>
 
 namespace Solus {
 	enum class EventType

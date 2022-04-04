@@ -6,6 +6,9 @@
 	#else
 		#define SOLUS_API __declspec(dllimport)
 	#endif
+#ifdef SU_PLATFORM_LINUX
+	#error Solus doesn't support Linux
+#endif
 #else
 	#error This is a Windows only engine
 #endif

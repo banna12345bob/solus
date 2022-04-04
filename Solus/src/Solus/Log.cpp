@@ -1,6 +1,6 @@
 // SPDLog: https://github.com/gabime/spdlog
 
-
+#include "supch.h"
 #include "Log.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"

@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Solus {
 
 	class SOLUS_API KeyEvent : public Event

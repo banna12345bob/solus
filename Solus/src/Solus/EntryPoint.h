@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
 	Solus::Log::Init();
 	SU_CORE_INFO("Solus Initialised");
-	SU_TRACE("Build successful");
+	SU_INFO("Build successful");
 
 	auto app = Solus::CreateApplication();
 	app->Run();
