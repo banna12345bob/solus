@@ -10,6 +10,11 @@ workspace "Solus"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Solus/vendor/GLFW/include"
+
+include "Solus/vendor/GLFW"
+
 project "Solus"
 	location "Solus"
 	kind "SharedLib"
@@ -30,7 +35,14 @@ project "Solus"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links 
+	{ 
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -48,6 +60,26 @@ project "Solus"
 		{
 			("{COPY} %{cfg.buildtarget.relpath} ../compile/bin/" .. outputdir .. "/Sandbox")
 		}
+
+filter "system:linux"
+	cppdialect "C++17"
+	staticruntime "On"
+	systemversion "latest"
+
+	defines
+	{
+		"SU_PLATFORM_LINUX"
+	}
+
+filter "system:macosx"
+	cppdialect "C++17"
+	staticruntime "On"
+	systemversion "latest"
+
+	defines
+	{
+		"SU_PLATFORM_MAC"
+	}
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
@@ -94,6 +126,26 @@ filter "system:windows"
 	defines
 	{
 		"SU_PLATFORM_WINDOWS"
+	}
+
+filter "system:linux"
+	cppdialect "C++17"
+	staticruntime "On"
+	systemversion "latest"
+
+	defines
+	{
+		"SU_PLATFORM_LINUX"
+	}
+
+filter "system:macosx"
+	cppdialect "C++17"
+	staticruntime "On"
+	systemversion "latest"
+
+	defines
+	{
+		"SU_PLATFORM_MAC"
 	}
 
 	filter "configurations:Debug"

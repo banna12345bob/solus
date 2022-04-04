@@ -6,11 +6,20 @@
 	#else
 		#define SOLUS_API __declspec(dllimport)
 	#endif
-#ifdef SU_PLATFORM_LINUX
+#elif SU_PLATFORM_LINUX
 	#error Solus doesn't support Linux
-#endif
+#elif SU_PLATFORM_MAC
+	#error Solus doesn't support Mac
 #else
-	#error This is a Windows only engine
+	#error What kind of operating system are you using? What ever it is it's not supported
+#endif
+
+#ifdef SU_ENABLE_ASSERTS
+#define SU_ASSERT(x, ...) { if(!(x)) { SU_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define SU_CORE_ASSERT(x, ...) { if(!(x)) { SU_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+#define SU_ASSERT(x, ...)
+#define SU_CORE_ASSERT(x, ...)
 #endif
 
 #define BIT(x) (1 << x)
