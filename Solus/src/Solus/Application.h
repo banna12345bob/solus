@@ -4,6 +4,8 @@
 #include "Events/Event.h"
 #include "Window.h"
 
+#include "Events/AllEvents.h"
+
 namespace Solus {
 
 	class SOLUS_API Application
@@ -13,7 +15,11 @@ namespace Solus {
 		virtual ~Application();
 
 		void Run();
+
+		void OnEvent(Event& e);
 	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 	};

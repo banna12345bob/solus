@@ -1,5 +1,6 @@
 workspace "Solus"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -19,6 +20,7 @@ project "Solus"
 	location "Solus"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -47,7 +49,6 @@ project "Solus"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -58,12 +59,11 @@ project "Solus"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../compile/bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../compile/bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 filter "system:linux"
 	cppdialect "C++17"
-	staticruntime "On"
 	systemversion "latest"
 
 	defines
@@ -73,7 +73,6 @@ filter "system:linux"
 
 filter "system:macosx"
 	cppdialect "C++17"
-	staticruntime "On"
 	systemversion "latest"
 
 	defines
@@ -83,20 +82,24 @@ filter "system:macosx"
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SU_RELEASE"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "SU_DIST"
+		runtime "Release"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -120,7 +123,6 @@ project "Sandbox"
 
 filter "system:windows"
 	cppdialect "C++17"
-	staticruntime "On"
 	systemversion "latest"
 
 	defines
@@ -130,7 +132,6 @@ filter "system:windows"
 
 filter "system:linux"
 	cppdialect "C++17"
-	staticruntime "On"
 	systemversion "latest"
 
 	defines
@@ -140,7 +141,6 @@ filter "system:linux"
 
 filter "system:macosx"
 	cppdialect "C++17"
-	staticruntime "On"
 	systemversion "latest"
 
 	defines
@@ -150,12 +150,15 @@ filter "system:macosx"
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SU_RELEASE"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "SU_DIST"
+		runtime "Release"
 		optimize "On"

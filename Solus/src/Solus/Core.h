@@ -14,6 +14,10 @@
 	#error What kind of operating system are you using? What ever it is it's not supported
 #endif
 
+#ifdef SU_DEBUG
+	#define SU_ENABLE_ASSERTS
+#endif
+
 #ifdef SU_ENABLE_ASSERTS
 #define SU_ASSERT(x, ...) { if(!(x)) { SU_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #define SU_CORE_ASSERT(x, ...) { if(!(x)) { SU_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
