@@ -2,6 +2,8 @@
 .vs/
 .git/
 compile/
+bin/
+bin-int/
 *.vcxproj
 *sln
 *filters

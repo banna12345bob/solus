@@ -3,6 +3,9 @@
 
 #include "Solus/Events/AllEvents.h"
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 namespace Solus {
 
 	static bool s_GLFWInitialised = false;
@@ -38,7 +41,7 @@ namespace Solus {
 		if (!s_GLFWInitialised)
 		{
 			int success = glfwInit();
-			SU_CORE_ASSERT(success, "Could not intialize GLFW!");
+			SU_CORE_ASSERT(success, "Could not intialise GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 
 			s_GLFWInitialised = true;
@@ -46,6 +49,8 @@ namespace Solus {
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		SU_CORE_ASSERT(status, "Failed to initalise glad");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

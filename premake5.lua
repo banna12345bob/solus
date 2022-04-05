@@ -13,9 +13,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Solus/vendor/GLFW/include"
+IncludeDir["Glad"] = "Solus/vendor/Glad/include"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
+	include "Solus/vendor/Glad"
 
 group ""
 
@@ -41,12 +43,14 @@ project "Solus"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links 
 	{ 
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -57,7 +61,8 @@ project "Solus"
 		defines
 		{
 			"SU_PLATFORM_WINDOWS",
-			"SU_BUILD_DLL"
+			"SU_BUILD_DLL",
+			"SU_ENABLE_ASSERTS"
 		}
 
 		postbuildcommands
@@ -130,7 +135,8 @@ filter "system:windows"
 
 	defines
 	{
-		"SU_PLATFORM_WINDOWS"
+		"SU_PLATFORM_WINDOWS",
+		"SU_ENABLE_ASSERTS"
 	}
 
 filter "system:linux"
