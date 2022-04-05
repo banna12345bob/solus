@@ -8,3 +8,8 @@ bin-int/
 *sln
 *filters
 *user
+Makefile
+Solus.config
+Solus.creator
+Solus.filters
+Solus.includes

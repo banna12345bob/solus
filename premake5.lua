@@ -50,8 +50,7 @@ project "Solus"
 	links 
 	{ 
 		"GLFW",
-		"Glad",
-		"opengl32.lib"
+		"Glad"
 	}
 
 	filter "system:windows"
@@ -65,18 +64,36 @@ project "Solus"
 			"SU_ENABLE_ASSERTS"
 		}
 
+		links
+		{
+			"opengl32.lib"
+		}
+
 		postbuildcommands
 		{
 			("{COPY} %{cfg.buildtarget.relpath} \"../compile/bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 filter "system:linux"
+	pic "On"
 	cppdialect "C++17"
+	staticruntime "On"
 	systemversion "latest"
+
+	links 
+		{ 
+			"Xrandr",
+			"Xi",
+			"GLEW",
+			"GLU",
+			"GL",
+			"X11"
+		}
 
 	defines
 	{
-		"SU_PLATFORM_LINUX"
+		"SU_PLATFORM_LINUX",
+		"SU_BUILD_DLL"
 	}
 
 filter "system:macosx"
@@ -141,6 +158,7 @@ filter "system:windows"
 
 filter "system:linux"
 	cppdialect "C++17"
+	staticruntime "On"
 	systemversion "latest"
 
 	defines

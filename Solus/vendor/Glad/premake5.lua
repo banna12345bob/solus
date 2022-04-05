@@ -21,6 +21,7 @@ project "Glad"
 	filter "system:linux"
 		pic "On"
 		systemversion "latest"
+		staticruntime "On"
 
 	filter "system:windows"
 		systemversion "latest"
