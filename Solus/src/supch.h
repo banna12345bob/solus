@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Solus/Log.h"
+#include "Solus/Core/Log.h"
 
 #ifdef SU_PLATFORM_WINDOWS
 	#include <Windows.h>

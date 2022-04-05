@@ -2,9 +2,10 @@
 
 //	Only to be used by the game build
 
-#include "Solus/Application.h"
-#include "Solus/Log.h"
+#include "Solus/Core/Application.h"
+#include "Solus/Layers/Layer.h"
+#include "Solus/Core/Log.h"
 
 /*-----------------------Entry Point------------------------*/
-#include "Solus/EntryPoint.h"
+#include "Solus/Core/EntryPoint.h"
 /*----------------------------------------------------------*/

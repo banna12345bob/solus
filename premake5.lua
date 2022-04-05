@@ -14,7 +14,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Solus/vendor/GLFW/include"
 
-include "Solus/vendor/GLFW"
+group "Dependencies"
+	include "Solus/vendor/GLFW"
+
+group ""
 
 project "Solus"
 	location "Solus"

@@ -2,7 +2,7 @@
 
 #include "supch.h"
 
-#include "Solus/Core.h"
+#include "Solus/Core/Core.h"
 #include "Solus/Events/Event.h"
 
 namespace Solus {

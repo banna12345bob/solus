@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Core.h"
-#include "Events/Event.h"
-#include "Window.h"
+#include "Solus/Core/Core.h"
 
-#include "Events/AllEvents.h"
+#include "Solus/Events/AllEvents.h"
+#include "Solus/Events/Event.h"
+#include "Solus/Core/Window.h"
+#include "Solus/Layers/LayerStack.h"
 
 namespace Solus {
 
@@ -17,11 +18,15 @@ namespace Solus {
 		void Run();
 
 		void OnEvent(Event& e);
+
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
+		LayerStack m_LayerStack;
 	};
 
 	//	To be defined in client
