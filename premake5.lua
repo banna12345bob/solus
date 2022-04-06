@@ -14,10 +14,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Solus/vendor/GLFW/include"
 IncludeDir["Glad"] = "Solus/vendor/Glad/include"
+IncludeDir["ImGui"] = "Solus/vendor/ImGui"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
 	include "Solus/vendor/Glad"
+	include "Solus/vendor/ImGui"
 
 group ""
 
@@ -44,13 +46,15 @@ project "Solus"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links 
 	{ 
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 

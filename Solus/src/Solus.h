@@ -6,6 +6,8 @@
 #include "Solus/Layers/Layer.h"
 #include "Solus/Core/Log.h"
 
+#include "Solus/ImGui/ImGuiLayer.h"
+
 /*-----------------------Entry Point------------------------*/
 #include "Solus/Core/EntryPoint.h"
 /*----------------------------------------------------------*/

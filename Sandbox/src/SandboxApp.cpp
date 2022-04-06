@@ -10,7 +10,7 @@ public:
 
 	void OnUpdate() override
 	{
-		SU_INFO("ExampleLayer : Update");
+		
 	}
 
 	void OnEvent(Solus::Event& event) override
@@ -25,6 +25,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Solus::ImGuiLayer());
 	}
 	~Sandbox()
 	{

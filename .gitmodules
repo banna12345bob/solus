@@ -1,9 +1,9 @@
-[submodule "Engine/vendor/spdlog"]
-	path = Engine/vendor/spdlog
-	url = https://github.com/gabime/spdlog
 [submodule "Solus/vendor/spdlog"]
 	path = Solus/vendor/spdlog
 	url = https://github.com/gabime/spdlog
 [submodule "Solus/vendor/GLFW"]
 	path = Solus/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Solus/vendor/ImGui"]
+	path = Solus/vendor/ImGui
+	url = https://github.com/TheCherno/imgui/
