@@ -65,8 +65,7 @@ project "Solus"
 		defines
 		{
 			"SU_PLATFORM_WINDOWS",
-			"SU_BUILD_DLL",
-			"SU_ENABLE_ASSERTS"
+			"SU_BUILD_DLL"
 		}
 
 		postbuildcommands
@@ -139,8 +138,7 @@ filter "system:windows"
 
 	defines
 	{
-		"SU_PLATFORM_WINDOWS",
-		"SU_ENABLE_ASSERTS"
+		"SU_PLATFORM_WINDOWS"
 	}
 
 filter "system:linux"
