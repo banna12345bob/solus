@@ -13,6 +13,7 @@ namespace Solus {
 		unsigned int Width;
 		unsigned int Height;
 
+		//Default title, width and height
 		WindowProps(const std::string& title = "Solus Engine",
 			unsigned int width = 1280,
 			unsigned int height = 720)
