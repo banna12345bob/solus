@@ -15,7 +15,7 @@ public:
 
 	void OnEvent(Solus::Event& event) override
 	{
-		SU_TRACE("{0}", event);
+		//SU_TRACE("{0}", event);
 	}
 };
 
