@@ -7,3 +7,6 @@
 [submodule "Solus/vendor/ImGui"]
 	path = Solus/vendor/ImGui
 	url = https://github.com/TheCherno/imgui/
+[submodule "Solus/vendor/glm"]
+	path = Solus/vendor/glm
+	url = https://github.com/g-truc/glm

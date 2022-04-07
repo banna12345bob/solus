@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Solus/vendor/GLFW/include"
 IncludeDir["Glad"] = "Solus/vendor/Glad/include"
 IncludeDir["ImGui"] = "Solus/vendor/ImGui"
+IncludeDir["glm"] = "Solus/vendor/glm"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
@@ -47,7 +48,8 @@ project "Solus"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links 
@@ -124,7 +126,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Solus/vendor/spdlog/include",
-		"Solus/src"
+		"Solus/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links
