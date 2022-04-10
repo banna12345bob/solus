@@ -7,6 +7,8 @@
 #include "Solus/Core/Window.h"
 #include "Solus/Layers/LayerStack.h"
 
+#include "Solus/ImGui/ImGuiLayer.h"
+
 namespace Solus {
 
 	class SOLUS_API Application
@@ -28,6 +30,7 @@ namespace Solus {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:

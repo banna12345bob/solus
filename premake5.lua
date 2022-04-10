@@ -127,6 +127,7 @@ project "Sandbox"
 	{
 		"Solus/vendor/spdlog/include",
 		"Solus/src",
+		"Solus/vendor",
 		"%{IncludeDir.glm}"
 	}
 

@@ -25,7 +25,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Solus::ImGuiLayer());
 	}
 	~Sandbox()
 	{
