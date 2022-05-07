@@ -18,6 +18,11 @@ namespace Solus {
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		SU_CORE_ASSERT(status, "Failed to initalise glad");
+
+		SU_CORE_TRACE("OpenGL Debug Infomation:");
+		SU_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
+		SU_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
+		SU_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()

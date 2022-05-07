@@ -15,10 +15,8 @@ public:
 		
 	}
 
-	virtual void OnImGuiRender() override {
-		/*ImGui::Begin("test");
-		ImGui::Text("This is a test");
-		ImGui::End();*/
+	virtual void OnImGuiRender() override 
+	{
 	}
 
 	void OnEvent(Solus::Event& event) override
