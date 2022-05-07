@@ -1,5 +1,7 @@
 #include <Solus.h>
 
+#include "ImGui/imgui.h"
+
 class ExampleLayer : public Solus::Layer
 {
 public:
@@ -11,6 +13,12 @@ public:
 	void OnUpdate() override
 	{
 		
+	}
+
+	virtual void OnImGuiRender() override {
+		/*ImGui::Begin("test");
+		ImGui::Text("This is a test");
+		ImGui::End();*/
 	}
 
 	void OnEvent(Solus::Event& event) override

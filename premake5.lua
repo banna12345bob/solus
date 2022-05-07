@@ -26,9 +26,10 @@ group ""
 
 project "Solus"
 	location "Solus"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -40,6 +41,10 @@ project "Solus"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
+	}
+
+	defines{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -61,7 +66,6 @@ project "Solus"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -70,13 +74,7 @@ project "Solus"
 			"SU_BUILD_DLL"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../compile/bin/" .. outputdir .. "/Sandbox/\"")
-		}
-
 filter "system:linux"
-	cppdialect "C++17"
 	systemversion "latest"
 
 	defines
@@ -85,7 +83,6 @@ filter "system:linux"
 	}
 
 filter "system:macosx"
-	cppdialect "C++17"
 	systemversion "latest"
 
 	defines
@@ -96,23 +93,24 @@ filter "system:macosx"
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "SU_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SU_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -137,7 +135,6 @@ project "Sandbox"
 	}
 
 filter "system:windows"
-	cppdialect "C++17"
 	systemversion "latest"
 
 	defines
@@ -146,7 +143,6 @@ filter "system:windows"
 	}
 
 filter "system:linux"
-	cppdialect "C++17"
 	systemversion "latest"
 
 	defines
@@ -155,7 +151,6 @@ filter "system:linux"
 	}
 
 filter "system:macosx"
-	cppdialect "C++17"
 	systemversion "latest"
 
 	defines
@@ -166,14 +161,15 @@ filter "system:macosx"
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "SU_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SU_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
+		symbols "off"

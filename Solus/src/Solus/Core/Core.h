@@ -1,10 +1,14 @@
 #pragma once
 
 #ifdef SU_PLATFORM_WINDOWS
-	#ifdef SU_BUILD_DLL
-		#define SOLUS_API __declspec(dllexport)
+	#ifdef SU_DYNAMIC_LINK
+		#ifdef SU_BUILD_DLL
+			#define SOLUS_API __declspec(dllexport)
+		#else
+			#define SOLUS_API __declspec(dllimport)
+		#endif
 	#else
-		#define SOLUS_API __declspec(dllimport)
+		#define	SOLUS_API
 	#endif
 #elif SU_PLATFORM_LINUX
 	#error Solus doesn't support Linux
