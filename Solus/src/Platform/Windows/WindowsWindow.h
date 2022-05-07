@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Solus/Core/Window.h"
+#include "Solus/Renderer/GraphicsContext.h"
 
-struct GLFWwindow;
+#include <GLFW/glfw3.h>
 
 namespace Solus {
 
@@ -27,6 +28,7 @@ namespace Solus {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
