@@ -9,6 +9,8 @@
 
 #include "Solus/ImGui/ImGuiLayer.h"
 
+#include "Solus/Renderer/Shader.h"
+
 namespace Solus {
 
 	class SOLUS_API Application
@@ -35,6 +37,7 @@ namespace Solus {
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 	private:
 		static Application* s_Instance;
 	};

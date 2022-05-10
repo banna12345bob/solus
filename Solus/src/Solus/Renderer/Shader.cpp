@@ -32,9 +32,8 @@ namespace Solus {
 			// We don't need the shader anymore.
 			glDeleteShader(vertexShader);
 
-			// Use the infoLog as you see fit.
-
-			// In this simple program, we'll just leave
+			SU_CORE_ERROR("{0}", infoLog.data());
+			SU_CORE_ASSERT(false, "Failed to compile vertex shader!");
 			return;
 		}
 
@@ -43,7 +42,7 @@ namespace Solus {
 
 		// Send the fragment shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		source = (const GLchar*)fragmentSrc.c_str();
+		source = fragmentSrc.c_str();
 		glShaderSource(fragmentShader, 1, &source, 0);
 
 		// Compile the fragment shader
@@ -64,16 +63,16 @@ namespace Solus {
 			// Either of them. Don't leak shaders.
 			glDeleteShader(vertexShader);
 
-			// Use the infoLog as you see fit.
-
-			// In this simple program, we'll just leave
+			SU_CORE_ERROR("{0}", infoLog.data());
+			SU_CORE_ASSERT(false, "Failed to compile fragment shader!");
 			return;
 		}
 
 		// Vertex and fragment shaders are successfully compiled.
 		// Now time to link them together into a program.
 		// Get a program object.
-		GLuint program = glCreateProgram();
+		m_RendererID = glCreateProgram();
+		GLuint program = m_RendererID;
 
 		// Attach our shaders to our program
 		glAttachShader(program, vertexShader);
@@ -100,9 +99,8 @@ namespace Solus {
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			// Use the infoLog as you see fit.
-
-			// In this simple program, we'll just leave
+			SU_CORE_ERROR("{0}", infoLog.data());
+			SU_CORE_ASSERT(false, "Failed to link shaders!");
 			return;
 		}
 
@@ -113,17 +111,17 @@ namespace Solus {
 
 	Shader::~Shader()
 	{
-
+		glDeleteProgram(m_RendererID);
 	}
 
 	void Shader::Bind() const
 	{
-
+		glUseProgram(m_RendererID);
 	}
 
 	void Shader::Unbind() const
 	{
-
+		glUseProgram(0);
 	}
 
 
