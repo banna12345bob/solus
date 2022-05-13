@@ -1,0 +1,21 @@
+#include "supch.h"
+#include "VertexArray.h"
+
+#include "Renderer.h"
+#include "Platform/OpenGL/OpenGLVertexArray.h"
+
+namespace Solus {
+
+	VertexArray* VertexArray::Create()
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::None:		SU_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
+		case RendererAPI::OpenGL:	return new OpenGLVertexArray();
+		}
+
+		SU_CORE_ASSERT(false, "Unknown graphics api");
+		return nullptr;
+	}
+
+}

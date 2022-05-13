@@ -8,8 +8,4 @@ namespace Solus {
 	{
 	}
 
-	Layer::~Layer()
-	{
-
-	}
 }

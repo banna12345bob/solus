@@ -22,8 +22,7 @@ namespace Solus {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 3] =
 		{
@@ -70,10 +69,6 @@ namespace Solus {
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 	}
 
-	Application::~Application()
-	{
-	}
-
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
@@ -105,7 +100,7 @@ namespace Solus {
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
+			m_VertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
