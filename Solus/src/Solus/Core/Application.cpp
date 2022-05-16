@@ -36,6 +36,10 @@ namespace Solus {
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
+		SU_CORE_INFO("Vertex size: {0}", m_VertexBuffer->GetSize());
+		SU_CORE_INFO("Size of uint32_t: {0}", sizeof(uint32_t));
+		SU_CORE_INFO("The caculation used to work out how to get how many verticies are there {0}", sizeof(vertices) / sizeof(uint32_t) / 3);
+
 		unsigned int indices[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 

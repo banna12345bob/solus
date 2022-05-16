@@ -13,8 +13,11 @@ namespace Solus {
 		virtual void Bind() const;
 		virtual void Unbind() const;
 
+		virtual uint32_t GetSize() const { return m_Size; }
+
 	private:
 		uint32_t m_RenderID;
+		uint32_t m_Size;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
