@@ -7,7 +7,6 @@ namespace Solus {
 
 	/*---------------------------------- Vertex Buffer ----------------------------------*/
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
-		: m_Size(size)
 	{
 		glCreateBuffers(1, &m_RenderID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RenderID);
