@@ -10,11 +10,11 @@ namespace Solus {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:		SU_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
-		case RendererAPI::OpenGL:	return new OpenGLVertexArray();
+		case RendererAPI::None:    SU_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::OpenGL:  return new OpenGLVertexArray();
 		}
 
-		SU_CORE_ASSERT(false, "Unknown graphics api");
+		SU_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
