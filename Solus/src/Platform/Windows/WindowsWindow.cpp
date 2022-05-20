@@ -12,7 +12,7 @@ namespace Solus {
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		SU_CORE_FATAL("GLFW Error ({0}): {1}", error, description);
+		SU_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
 	Window* Window::Create(const WindowProps& props)

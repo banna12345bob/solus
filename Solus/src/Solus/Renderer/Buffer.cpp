@@ -11,8 +11,8 @@ namespace Solus {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None:		SU_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
-			case RendererAPI::OpenGL:	return new OpenGLVertexBuffer(vertices, size);
+			case RenderAPI::API::None:		SU_CORE_ASSERT(false, "RenderAPI::None is not supported"); return nullptr;
+			case RenderAPI::API::OpenGL:	return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown graphics api");
@@ -23,8 +23,8 @@ namespace Solus {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:		SU_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
-		case RendererAPI::OpenGL:	return new OpenGLIndexBuffer(indices, size);
+			case RenderAPI::API::None:		SU_CORE_ASSERT(false, "RenderAPI::None is not supported"); return nullptr;
+			case RenderAPI::API::OpenGL:	return new OpenGLIndexBuffer(indices, size);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown graphics api");

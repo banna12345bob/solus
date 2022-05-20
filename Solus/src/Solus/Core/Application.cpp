@@ -3,7 +3,7 @@
 
 #include "Solus/Core/Log.h"
 
-#include <glad/glad.h>
+#include "Solus/Renderer/Renderer.h"
 
 #include "Input.h"
 
@@ -117,7 +117,7 @@ namespace Solus {
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);	
+				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -164,16 +164,19 @@ namespace Solus {
 	{
 		while (m_Running)
 		{
-			glClearColor(.1f, .1f, .1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ .1f, .1f, .1f, 1 });
+			RenderCommand::Clear();
+
+
+			Renderer::BeginScene();
 
 			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_SquareVA);
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

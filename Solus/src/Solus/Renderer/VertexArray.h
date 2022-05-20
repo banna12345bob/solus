@@ -1,14 +1,14 @@
 #pragma once
 
 #include <memory>
-#include "Buffer.h"
+#include "Solus/Renderer/Buffer.h"
 
 namespace Solus {
 
 	class VertexArray
 	{
 	public:
-		virtual ~VertexArray() = default;
+		virtual ~VertexArray() {}
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
@@ -23,4 +23,3 @@ namespace Solus {
 	};
 
 }
-

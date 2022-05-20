@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Solus/Core/Core.h"
+#include "Core.h"
 
-#include "Solus/Events/AllEvents.h"
-#include "Solus/Events/Event.h"
-#include "Solus/Core/Window.h"
+#include "Window.h"
 #include "Solus/Layers/LayerStack.h"
+#include "Solus/Events/Event.h"
+#include "Solus/Events/ApplicationEvent.h"
 
 #include "Solus/ImGui/ImGuiLayer.h"
 
@@ -26,10 +26,11 @@ namespace Solus {
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* overlay);
+		void PushOverlay(Layer* layer);
+
+		inline Window& GetWindow() { return *m_Window; }
 
 		inline static Application& Get() { return *s_Instance; }
-		inline Window& GetWindow() { return *m_Window; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
@@ -38,16 +39,16 @@ namespace Solus {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
 
-		std::unique_ptr<Shader> m_BlueShader;
-		std::unique_ptr<VertexArray> m_SquareVA;
+		std::shared_ptr<Shader> m_BlueShader;
+		std::shared_ptr<VertexArray> m_SquareVA;
 	private:
 		static Application* s_Instance;
 	};
 
-	//	To be defined in client
+	// To be defined in CLIENT
 	Application* CreateApplication();
-}
 
+}
