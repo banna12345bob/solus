@@ -13,6 +13,8 @@
 #include "Solus/Renderer/Buffer.h"
 #include "Solus/Renderer/VertexArray.h"
 
+#include "Solus/Renderer/OrthographicCamera.h"
+
 namespace Solus {
 
 	class SOLUS_API Application
@@ -44,6 +46,8 @@ namespace Solus {
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
+		
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};
