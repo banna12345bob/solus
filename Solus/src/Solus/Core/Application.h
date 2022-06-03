@@ -9,11 +9,6 @@
 
 #include "Solus/ImGui/ImGuiLayer.h"
 
-#include "Solus/Renderer/Shader.h"
-#include "Solus/Renderer/Buffer.h"
-#include "Solus/Renderer/VertexArray.h"
-
-#include "Solus/Renderer/OrthographicCamera.h"
 
 namespace Solus {
 
@@ -40,14 +35,6 @@ namespace Solus {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-		
-		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};

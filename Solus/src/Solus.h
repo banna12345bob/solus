@@ -18,3 +18,13 @@
 /*-----------------------Entry Point------------------------*/
 #include "Solus/Core/EntryPoint.h"
 /*----------------------------------------------------------*/
+
+/*-----------------------Renderer------------------------*/
+#include "Solus/Renderer/Renderer.h"
+#include "Solus/Renderer/RenderCommand.h"
+#include "Solus/Renderer/Shader.h"
+#include "Solus/Renderer/GraphicsContext.h"
+#include "Solus/Renderer/Buffer.h"
+#include "Solus/Renderer/VertexArray.h"
+#include "Solus/Renderer/OrthographicCamera.h"
+/*-------------------------------------------------------*/
