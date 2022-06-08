@@ -125,19 +125,19 @@ public:
 		m_BlueShader.reset(new Solus::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Solus::Timestep time) override
 	{
 		if (Solus::Input::IsKeyPressed(SU_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed;
+			m_CameraPosition.x -= m_CameraSpeed * time;
 
 		else if (Solus::Input::IsKeyPressed(SU_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * time;
 
 		if (Solus::Input::IsKeyPressed(SU_KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y += m_CameraSpeed * time;
 
 		else if (Solus::Input::IsKeyPressed(SU_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * time;
 
 		Solus::RenderCommand::SetClearColor({ .1f, .1f, .1f, 1 });
 		Solus::RenderCommand::Clear();
@@ -170,7 +170,7 @@ private:
 
 	Solus::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 0.1f;
+	float m_CameraSpeed = 1.0f;
 };
 
 class Sandbox : public Solus::Application

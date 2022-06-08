@@ -3,6 +3,8 @@
 #include "Solus/Core/Core.h"
 #include "Solus/Events/Event.h"
 
+#include "Solus/Core/Timestep.h"
+
 namespace Solus {
 
 	class SOLUS_API Layer
@@ -13,7 +15,7 @@ namespace Solus {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

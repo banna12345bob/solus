@@ -6,6 +6,7 @@
 #include "Solus/Layers/Layer.h"
 #include "Solus/Core/Log.h"
 
+#include "Solus/Core/Timestep.h"
 
 #include "Solus/ImGui/ImGuiLayer.h"
 

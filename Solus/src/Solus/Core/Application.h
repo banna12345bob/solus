@@ -7,6 +7,8 @@
 #include "Solus/Events/Event.h"
 #include "Solus/Events/ApplicationEvent.h"
 
+#include "Solus/Core/Timestep.h"
+
 #include "Solus/ImGui/ImGuiLayer.h"
 
 
@@ -30,11 +32,12 @@ namespace Solus {
 		inline static Application& Get() { return *s_Instance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
-
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
 	};
