@@ -96,7 +96,7 @@ public:
 		m_Shader.reset(new Solus::Shader(vertexSrc, fragmentSrc));
 
 
-		std::string blueShaderVertexSrc = R"(
+		std::string flatColourShaderVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -113,20 +113,22 @@ public:
 			}
 		)";
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string flatColourShaderFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
 
+			uniform vec4 u_Colour = vec4(1, 0, 1, 1);
+
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = u_Colour;
 			}
 		)";
 
-		m_BlueShader.reset(new Solus::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		m_flatColourShader.reset(new Solus::Shader(flatColourShaderVertexSrc, flatColourShaderFragmentSrc));
 	}
 
 	void OnUpdate(Solus::Timestep time) override
@@ -153,13 +155,20 @@ public:
 		
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+
+		glm::vec4 blueColour(0.2f, 0.3f, 0.8f, 1.0f);
+		glm::vec4 redColour(0.8f, 0.2f, 0.3f, 1.0f);
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				Solus::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+				if (x % 2 == 0)
+					m_flatColourShader->UploadUniformFloat4("u_Colour", redColour);
+				else
+					m_flatColourShader->UploadUniformFloat4("u_Colour", blueColour);
+				Solus::Renderer::Submit(m_flatColourShader, m_SquareVA, transform);
 
 			}
 		}
@@ -181,7 +190,7 @@ private:
 	std::shared_ptr<Solus::Shader> m_Shader;
 	std::shared_ptr<Solus::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Solus::Shader> m_BlueShader;
+	std::shared_ptr<Solus::Shader> m_flatColourShader;
 	std::shared_ptr<Solus::VertexArray> m_SquareVA;
 
 	Solus::OrthographicCamera m_Camera;
