@@ -1,8 +1,11 @@
 #include <Solus.h>
 
+#include <Platform/OpenGL/OpenGLShader.h>
+
 #include "ImGui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Solus::Layer
 {
@@ -93,7 +96,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new Solus::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Solus::Shader::Create(vertexSrc, fragmentSrc));
 
 
 		std::string flatColourShaderVertexSrc = R"(
@@ -120,15 +123,15 @@ public:
 
 			in vec3 v_Position;
 
-			uniform vec4 u_Colour = vec4(1, 0, 1, 1);
+			uniform vec3 u_Colour = vec3(1, 0, 1);
 
 			void main()
 			{
-				color = u_Colour;
+				color = vec4(u_Colour, 1.0f);
 			}
 		)";
 
-		m_flatColourShader.reset(new Solus::Shader(flatColourShaderVertexSrc, flatColourShaderFragmentSrc));
+		m_flatColourShader.reset(Solus::Shader::Create(flatColourShaderVertexSrc, flatColourShaderFragmentSrc));
 	}
 
 	void OnUpdate(Solus::Timestep time) override
@@ -155,19 +158,15 @@ public:
 		
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_flatColourShader)->Bind();
+		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_flatColourShader)->UploadUniformFloat3("u_Colour", m_squareColour);
 
-		glm::vec4 blueColour(0.2f, 0.3f, 0.8f, 1.0f);
-		glm::vec4 redColour(0.8f, 0.2f, 0.3f, 1.0f);
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				if (x % 2 == 0)
-					m_flatColourShader->UploadUniformFloat4("u_Colour", redColour);
-				else
-					m_flatColourShader->UploadUniformFloat4("u_Colour", blueColour);
 				Solus::Renderer::Submit(m_flatColourShader, m_SquareVA, transform);
 
 			}
@@ -180,6 +179,11 @@ public:
 
 	virtual void OnImGuiRender() override 
 	{
+		ImGui::Begin("Settings");
+
+		ImGui::ColorEdit3("Square Colour", glm::value_ptr(m_squareColour));
+
+		ImGui::End();
 	}
 
 	void OnEvent(Solus::Event& event) override
@@ -196,6 +200,8 @@ private:
 	Solus::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
 	float m_CameraSpeed = 5.0f;
+
+	glm::vec3 m_squareColour = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public Solus::Application
