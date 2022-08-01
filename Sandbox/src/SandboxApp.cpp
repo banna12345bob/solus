@@ -22,7 +22,7 @@ public:
 			0.0f, 0.5f, 0.0f,		0.0f, 0.0f, 1.0f, 1.0f
 		};
 
-		std::shared_ptr<Solus::VertexBuffer> vertexBuffer;
+		Solus::Ref<Solus::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Solus::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		{
@@ -36,7 +36,7 @@ public:
 		}
 
 		unsigned int indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Solus::IndexBuffer> indexBuffer;
+		Solus::Ref<Solus::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Solus::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -49,7 +49,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<Solus::VertexBuffer> squareVB;
+		Solus::Ref<Solus::VertexBuffer> squareVB;
 		squareVB.reset(Solus::VertexBuffer::Create(squareVerticies, sizeof(squareVerticies)));
 		squareVB->SetLayout({
 			{ Solus::ShaderDataType::Float3, "a_Position" }
@@ -57,7 +57,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Solus::IndexBuffer> squareIB;
+		Solus::Ref<Solus::IndexBuffer> squareIB;
 		squareIB.reset(Solus::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -191,11 +191,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Solus::Shader> m_Shader;
-	std::shared_ptr<Solus::VertexArray> m_VertexArray;
+	Solus::Ref<Solus::Shader> m_Shader;
+	Solus::Ref<Solus::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Solus::Shader> m_flatColourShader;
-	std::shared_ptr<Solus::VertexArray> m_SquareVA;
+	Solus::Ref<Solus::Shader> m_flatColourShader;
+	Solus::Ref<Solus::VertexArray> m_SquareVA;
 
 	Solus::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
