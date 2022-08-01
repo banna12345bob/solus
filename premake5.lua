@@ -167,8 +167,6 @@ filter "system:macosx"
 		defines "SU_RELEASE"
 		runtime "Release"
 		optimize "on"
-		kind "WindowedApp"
-		entrypoint "mainCRTStartup"
 
 	filter "configurations:Dist"
 		defines "SU_DIST"
