@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Solus/vendor/GLFW/include"
 IncludeDir["Glad"] = "Solus/vendor/Glad/include"
 IncludeDir["ImGui"] = "Solus/vendor/ImGui"
 IncludeDir["glm"] = "Solus/vendor/glm"
+IncludeDir["stb_image"] = "Solus/vendor/stb_image"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
@@ -40,7 +41,9 @@ project "Solus"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{IncludeDir.stb_image}/**.h",
+		"%{IncludeDir.stb_image}/**.cpp",
 	}
 
 	defines{
@@ -54,7 +57,8 @@ project "Solus"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links 
