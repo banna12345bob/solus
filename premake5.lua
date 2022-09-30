@@ -78,21 +78,21 @@ project "Solus"
 			"SU_BUILD_DLL"
 		}
 
-filter "system:linux"
-	systemversion "latest"
+	filter "system:linux"
+		systemversion "latest"
 
-	defines
-	{
-		"SU_PLATFORM_LINUX"
-	}
+		defines
+		{
+			"SU_PLATFORM_LINUX"
+		}
 
-filter "system:macosx"
-	systemversion "latest"
+	filter "system:macosx"
+		systemversion "latest"
 
-	defines
-	{
-		"SU_PLATFORM_MAC"
-	}
+		defines
+		{
+			"SU_PLATFORM_MAC"
+		}
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
@@ -138,29 +138,29 @@ project "Sandbox"
 		"Solus"
 	}
 
-filter "system:windows"
-	systemversion "latest"
+	filter "system:windows"
+		systemversion "latest"
 
-	defines
-	{
-		"SU_PLATFORM_WINDOWS"
-	}
+		defines
+		{
+			"SU_PLATFORM_WINDOWS"
+		}
 
-filter "system:linux"
-	systemversion "latest"
+	filter "system:linux"
+		systemversion "latest"
 
-	defines
-	{
-		"SU_PLATFORM_LINUX"
-	}
+		defines
+		{
+			"SU_PLATFORM_LINUX"
+		}
 
-filter "system:macosx"
-	systemversion "latest"
+	filter "system:macosx"
+		systemversion "latest"
 
-	defines
-	{
-		"SU_PLATFORM_MAC"
-	}
+		defines
+		{
+			"SU_PLATFORM_MAC"
+		}
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
@@ -171,11 +171,11 @@ filter "system:macosx"
 		defines "SU_RELEASE"
 		runtime "Release"
 		optimize "on"
+		kind "WindowedApp"
+		entrypoint "mainCRTStartup"
 
 	filter "configurations:Dist"
 		defines "SU_DIST"
 		runtime "Release"
 		optimize "on"
 		symbols "on"
-		kind "WindowedApp"
-		entrypoint "mainCRTStartup"
