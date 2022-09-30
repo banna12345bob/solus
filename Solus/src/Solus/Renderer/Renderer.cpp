@@ -7,6 +7,11 @@ namespace Solus {
 
 	Renderer::ScreenData* Renderer::m_ScreenData = new Renderer::ScreenData;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		m_ScreenData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
