@@ -97,11 +97,11 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Solus::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Solus::Shader::Create("VertexPosColour", vertexSrc, fragmentSrc);
 
-		m_flatColourShader.reset(Solus::Shader::Create("assets/shaders/flatColour.glsl"));
+		auto m_flatColourShader = m_ShaderLibary.Load("assets/shaders/flatColour.glsl");
 
-		m_TextureShader.reset(Solus::Shader::Create("assets/shaders/texture.glsl"));
+		auto m_TextureShader = m_ShaderLibary.Load("assets/shaders/texture.glsl");
 
 		m_Texture = Solus::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_OakLogTex = Solus::Texture2D::Create("assets/textures/Oak_Log.png");
@@ -134,6 +134,8 @@ public:
 		
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		auto m_flatColourShader = m_ShaderLibary.Get("flatColour");
+
 		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_flatColourShader)->Bind();
 		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_flatColourShader)->UploadUniformFloat3("u_Colour", m_squareColour);
 
@@ -147,6 +149,8 @@ public:
 
 			}
 		}
+
+		auto m_TextureShader = m_ShaderLibary.Get("texture");
 
 		m_Texture->Bind();
 		Solus::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
@@ -172,10 +176,10 @@ public:
 	}
 
 private:
+	Solus::ShaderLibary m_ShaderLibary;
 	Solus::Ref<Solus::Shader> m_Shader;
 	Solus::Ref<Solus::VertexArray> m_VertexArray;
 
-	Solus::Ref<Solus::Shader> m_flatColourShader, m_TextureShader;
 	Solus::Ref<Solus::VertexArray> m_SquareVA;
 
 	Solus::Ref<Solus::Texture2D> m_Texture, m_OakLogTex;
