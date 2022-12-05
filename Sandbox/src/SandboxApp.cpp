@@ -11,7 +11,7 @@ class ExampleLayer : public Solus::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(m_Camera.GetPosition())
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 		m_VertexArray.reset(Solus::VertexArray::Create());
 
@@ -112,25 +112,12 @@ public:
 
 	void OnUpdate(Solus::Timestep time) override
 	{
-		if (Solus::Input::IsKeyPressed(SU_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed * time;
-
-		else if (Solus::Input::IsKeyPressed(SU_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed * time;
-
-		if (Solus::Input::IsKeyPressed(SU_KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed * time;
-
-		else if (Solus::Input::IsKeyPressed(SU_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed * time;
+		m_CameraController.OnUpdate(time);
 
 		Solus::RenderCommand::SetClearColor({ .1f, .1f, .1f, 1 });
 		Solus::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(0.0f);
-
-		Solus::Renderer::BeginScene(m_Camera);
+		Solus::Renderer::BeginScene(m_CameraController.GetCamera());
 		
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -173,6 +160,7 @@ public:
 
 	void OnEvent(Solus::Event& event) override
 	{
+		m_CameraController.OnEvent(event);
 	}
 
 private:
@@ -184,9 +172,7 @@ private:
 
 	Solus::Ref<Solus::Texture2D> m_Texture, m_OakLogTex;
 
-	Solus::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 5.0f;
+	Solus::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_squareColour = { 0.2f, 0.3f, 0.8f };
 };

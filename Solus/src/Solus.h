@@ -10,6 +10,8 @@
 
 #include "Solus/ImGui/ImGuiLayer.h"
 
+#include "Solus/OrthographicCameraController.h"
+
 /*-----------------------Input------------------------*/
 #include "Solus/Core/MouseButtonCodes.h"
 #include "Solus/Core/KeyCodes.h"
@@ -28,5 +30,6 @@
 #include "Solus/Renderer/GraphicsContext.h"
 #include "Solus/Renderer/Buffer.h"
 #include "Solus/Renderer/VertexArray.h"
+#include "Solus/Renderer/OrthographicCamera.h"
 #include "Solus/Renderer/OrthographicCamera.h"
 /*-------------------------------------------------------*/
