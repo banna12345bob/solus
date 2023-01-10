@@ -66,7 +66,6 @@ public:
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Colour;
 
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
@@ -77,7 +76,7 @@ public:
 			void main()
 			{
 				v_Position = a_Position;
-				v_Colour = a_Colour;
+				v_Colour = vec4(1.0f, 0.0f, 1.0f, 1.0f);
 				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
@@ -92,12 +91,12 @@ public:
 
 			void main()
 			{
-				colour = vec4(v_Position + 0.5, 1.0);
 				colour = vec4(v_Colour);
 			}
 		)";
 
 		m_Shader = Solus::Shader::Create("VertexPosColour", vertexSrc, fragmentSrc);
+		m_ShaderLibary.Add("defaultShader", m_Shader);
 
 		auto m_flatColourShader = m_ShaderLibary.Load("assets/shaders/flatColour.glsl");
 
@@ -144,6 +143,7 @@ public:
 		m_OakLogTex->Bind();
 		Solus::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+		m_Shader = m_ShaderLibary.Get("defaultShader");
 		//Solus::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Solus::Renderer::EndScene();
