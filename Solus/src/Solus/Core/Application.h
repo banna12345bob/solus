@@ -3,7 +3,7 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Solus/Layers/LayerStack.h"
+#include "Solus/Core/LayerStack.h"
 #include "Solus/Events/Event.h"
 #include "Solus/Events/ApplicationEvent.h"
 

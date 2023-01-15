@@ -5,7 +5,7 @@
 
 namespace Solus {
 
-	Renderer::ScreenData* Renderer::m_ScreenData = new Renderer::ScreenData;
+	Scope<Renderer::ScreenData> Renderer::m_ScreenData = CreateScope<Renderer::ScreenData>();
 
 	void Renderer::Init()
 	{

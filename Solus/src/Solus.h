@@ -3,14 +3,14 @@
 //	Only to be used by applications
 
 #include "Solus/Core/Application.h"
-#include "Solus/Layers/Layer.h"
+#include "Solus/Core/Layer.h"
 #include "Solus/Core/Log.h"
 
 #include "Solus/Core/Timestep.h"
 
 #include "Solus/ImGui/ImGuiLayer.h"
 
-#include "Solus/OrthographicCameraController.h"
+#include "Solus/Renderer/OrthographicCameraController.h"
 
 /*-----------------------Input------------------------*/
 #include "Solus/Core/MouseButtonCodes.h"

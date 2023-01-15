@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Solus/Core/Core.h"
-#include "Solus/Layers/Layer.h"
+#include "Solus/Core/Layer.h"
 
 #include "supch.h"
 

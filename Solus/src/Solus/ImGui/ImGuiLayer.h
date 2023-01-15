@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Solus/Layers/Layer.h"
+#include "Solus/Core/Layer.h"
 #include "Solus/Events/AllEvents.h"
 
 namespace Solus {

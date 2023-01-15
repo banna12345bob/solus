@@ -5,6 +5,6 @@
 
 namespace Solus {
 
-	RenderAPI* RenderCommand::s_RenderAPI = new OpenGLRenderAPI;
+	Scope<RenderAPI> RenderCommand::s_RenderAPI = CreateScope<OpenGLRenderAPI>();
 
 }

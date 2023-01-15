@@ -26,7 +26,7 @@ namespace Solus {
 			glm::mat4 ViewProjectionMatrix;
 		};
 
-		static ScreenData* m_ScreenData;
+		static Scope<ScreenData> m_ScreenData;
 	};
 
 }

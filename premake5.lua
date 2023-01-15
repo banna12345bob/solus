@@ -72,27 +72,11 @@ project "Solus"
 	filter "system:windows"
 		systemversion "latest"
 
-		defines
-		{
-			"SU_PLATFORM_WINDOWS",
-			"SU_BUILD_DLL"
-		}
-
 	filter "system:linux"
 		systemversion "latest"
 
-		defines
-		{
-			"SU_PLATFORM_LINUX"
-		}
-
 	filter "system:macosx"
 		systemversion "latest"
-
-		defines
-		{
-			"SU_PLATFORM_MAC"
-		}
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
@@ -141,26 +125,11 @@ project "Sandbox"
 	filter "system:windows"
 		systemversion "latest"
 
-		defines
-		{
-			"SU_PLATFORM_WINDOWS"
-		}
-
 	filter "system:linux"
 		systemversion "latest"
 
-		defines
-		{
-			"SU_PLATFORM_LINUX"
-		}
-
 	filter "system:macosx"
 		systemversion "latest"
-
-		defines
-		{
-			"SU_PLATFORM_MAC"
-		}
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
@@ -171,8 +140,6 @@ project "Sandbox"
 		defines "SU_RELEASE"
 		runtime "Release"
 		optimize "on"
-		kind "WindowedApp"
-		entrypoint "mainCRTStartup"
 
 	filter "configurations:Dist"
 		defines "SU_DIST"
