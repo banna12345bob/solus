@@ -18,10 +18,6 @@
 #include "Solus/Core/Input.h"
 /*----------------------------------------------------*/
 
-/*-----------------------Entry Point------------------------*/
-#include "Solus/Core/EntryPoint.h"
-/*----------------------------------------------------------*/
-
 /*-----------------------Renderer------------------------*/
 #include "Solus/Renderer/Renderer.h"
 #include "Solus/Renderer/RenderCommand.h"
