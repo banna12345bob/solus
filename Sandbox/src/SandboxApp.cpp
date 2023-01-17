@@ -26,7 +26,7 @@ public:
 		};
 
 		Solus::Ref<Solus::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Solus::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Solus::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		{
 			Solus::BufferLayout layout = {
@@ -40,7 +40,7 @@ public:
 
 		unsigned int indices[3] = { 0, 1, 2 };
 		Solus::Ref<Solus::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Solus::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = Solus::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA = Solus::VertexArray::Create();
@@ -53,7 +53,7 @@ public:
 		};
 
 		Solus::Ref<Solus::VertexBuffer> squareVB;
-		squareVB.reset(Solus::VertexBuffer::Create(squareVerticies, sizeof(squareVerticies)));
+		squareVB = Solus::VertexBuffer::Create(squareVerticies, sizeof(squareVerticies));
 		squareVB->SetLayout({
 			{ Solus::ShaderDataType::Float3, "a_Position" },
 			{ Solus::ShaderDataType::Float2, "a_TexCoord" }
@@ -62,7 +62,7 @@ public:
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		Solus::Ref<Solus::IndexBuffer> squareIB;
-		squareIB.reset(Solus::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIB = Solus::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(

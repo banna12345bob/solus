@@ -20,6 +20,7 @@
 
 /*-----------------------Renderer------------------------*/
 #include "Solus/Renderer/Renderer.h"
+#include "Solus/Renderer/Renderer2D.h"
 #include "Solus/Renderer/RenderCommand.h"
 #include "Solus/Renderer/Shader.h"
 #include "Solus/Renderer/Texture.h"
