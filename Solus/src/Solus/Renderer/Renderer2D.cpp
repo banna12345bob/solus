@@ -13,6 +13,7 @@ namespace Solus {
 	{
 		Ref<VertexArray> QuadVertexArray;
 		Ref<Shader> FlatColourShader;
+		Ref<Shader> TextureShader;
 	};
 
 	static Renderer2DData* s_Data;
@@ -23,17 +24,18 @@ namespace Solus {
 
 		s_Data->QuadVertexArray = VertexArray::Create();
 
-		float squareVerticies[3 * 4] = {
-				-0.5f, -0.5f, 0.0f,
-				 0.5f, -0.5f, 0.0f,
-				 0.5f,  0.5f, 0.0f,
-				-0.5f,  0.5f, 0.0f
+		float squareVerticies[5 * 4] = {
+				-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+				 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+				 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+				-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		Ref<VertexBuffer> squareVB;
 		squareVB = VertexBuffer::Create(squareVerticies, sizeof(squareVerticies));
 		squareVB->SetLayout({
-			{ ShaderDataType::Float3, "a_Position" }
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float2, "a_TexCoord" }
 			});
 		s_Data->QuadVertexArray->AddVertexBuffer(squareVB);
 
@@ -74,6 +76,9 @@ namespace Solus {
 		)";
 
 		s_Data->FlatColourShader = Shader::Create("flatColourShader", vertexSrc, fragmentSrc);
+		s_Data->TextureShader = Shader::Create("assets/shaders/texture.glsl");
+		s_Data->TextureShader->Bind();
+		s_Data->TextureShader->SetInt("u_Texture", 0);
 	}
 
 	void Renderer2D::Shutdown()
@@ -85,6 +90,9 @@ namespace Solus {
 	{
 		s_Data->FlatColourShader->Bind();
 		s_Data->FlatColourShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+
+		s_Data->TextureShader->Bind();
+		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
@@ -92,12 +100,12 @@ namespace Solus {
 
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const float rotation, const glm::vec2 size, const glm::vec4 colour)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const glm::vec4& colour)
 	{
 		DrawQuad({ position.x, position.y, 0.0f }, rotation, size, colour);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const float rotation, const glm::vec2 size, const glm::vec4 colour)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const glm::vec4& colour)
 	{
 		s_Data->FlatColourShader->Bind();
 		s_Data->FlatColourShader->SetFloat4("u_Colour", colour);
@@ -108,6 +116,49 @@ namespace Solus {
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 		s_Data->FlatColourShader->SetMat4("u_Transform", transform);
 
+
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, rotation, size, texture);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture)
+	{
+		s_Data->TextureShader->Bind();
+
+		float nrotation = rotation * 3.14159 / 180;
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), nrotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
+
+		texture->Bind();
+
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& colour)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, rotation, size, texture, colour);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& colour)
+	{
+		s_Data->TextureShader->Bind();
+		s_Data->FlatColourShader->SetFloat4("u_Colour", colour);
+
+		float nrotation = rotation * 3.14159 / 180;
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), nrotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
+
+		texture->Bind();
 
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
