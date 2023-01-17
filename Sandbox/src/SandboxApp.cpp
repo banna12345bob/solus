@@ -1,8 +1,6 @@
 #include <Solus.h>
 #include <Solus/Core/EntryPoint.h>
 
-#include <Platform/OpenGL/OpenGLShader.h>
-
 #include <ImGui/imgui.h>
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -108,8 +106,8 @@ public:
 		m_Texture = Solus::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_OakLogTex = Solus::Texture2D::Create("assets/textures/Oak_Log.png");
 
-		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		m_TextureShader->Bind();
+		m_TextureShader->SetInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Solus::Timestep time) override
@@ -125,8 +123,8 @@ public:
 
 		auto m_flatColourShader = m_ShaderLibary.Get("flatColour");
 
-		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_flatColourShader)->Bind();
-		std::dynamic_pointer_cast<Solus::OpenGLShader>(m_flatColourShader)->UploadUniformFloat3("u_Colour", m_squareColour);
+		m_flatColourShader->Bind();
+		m_flatColourShader->SetFloat3("u_Colour", m_squareColour);
 
 		for (int y = 0; y < 20; y++)
 		{

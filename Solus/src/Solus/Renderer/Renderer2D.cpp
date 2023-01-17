@@ -5,7 +5,7 @@
 #include "Shader.h"
 #include "RenderCommand.h"
 
-#include <Platform/OpenGL/OpenGLShader.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Solus {
 
@@ -83,9 +83,8 @@ namespace Solus {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColourShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColourShader)->UploadUniformMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColourShader)->UploadUniformMat4("u_Transform", glm::mat4(1.0f));
+		s_Data->FlatColourShader->Bind();
+		s_Data->FlatColourShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
@@ -93,15 +92,23 @@ namespace Solus {
 
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2 size, const glm::vec4 colour)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const float rotation, const glm::vec2 size, const glm::vec4 colour)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, colour);
+		DrawQuad({ position.x, position.y, 0.0f }, rotation, size, colour);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2 size, const glm::vec4 colour)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const float rotation, const glm::vec2 size, const glm::vec4 colour)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColourShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColourShader)->UploadUniformFloat4("u_Colour", colour);
+		s_Data->FlatColourShader->Bind();
+		s_Data->FlatColourShader->SetFloat4("u_Colour", colour);
+
+		float nrotation = rotation * 3.14159 / 180;
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), nrotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data->FlatColourShader->SetMat4("u_Transform", transform);
+
+
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
 	}
