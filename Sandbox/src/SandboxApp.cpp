@@ -117,37 +117,23 @@ public:
 		Solus::RenderCommand::SetClearColor({ .1f, .1f, .1f, 1 });
 		Solus::RenderCommand::Clear();
 
-		Solus::Renderer::BeginScene(m_CameraController.GetCamera());
-		
-		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		Solus::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		auto m_flatColourShader = m_ShaderLibary.Get("flatColour");
+		Solus::Renderer2D::DrawQuad(glm::vec3(0.0f), 0, glm::vec2(1.0f), m_OakLogTex);
 
-		m_flatColourShader->Bind();
-		m_flatColourShader->SetFloat3("u_Colour", m_squareColour);
+		Solus::Renderer2D::DrawQuad(glm::vec3(0.0f), 0, glm::vec2(1.5f), m_Texture);
 
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
-				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				Solus::Renderer::Submit(m_flatColourShader, m_SquareVA, transform);
+				Solus::Renderer2D::DrawQuad(pos, 0, glm::vec2(0.1f), m_squareColour);
 
 			}
 		}
 
-		auto m_TextureShader = m_ShaderLibary.Get("texture");
-
-		m_Texture->Bind();
-		Solus::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-		m_OakLogTex->Bind();
-		Solus::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-
-		m_Shader = m_ShaderLibary.Get("defaultShader");
-		//Solus::Renderer::Submit(m_Shader, m_VertexArray);
-
-		Solus::Renderer::EndScene();
+		Solus::Renderer2D::EndScene();
 	}
 
 	virtual void OnImGuiRender() override 
@@ -175,7 +161,7 @@ private:
 
 	Solus::OrthographicCameraController m_CameraController;
 
-	glm::vec3 m_squareColour = { 0.2f, 0.3f, 0.8f };
+	glm::vec4 m_squareColour = { 0.2f, 0.3f, 0.8f, 1.0f };
 };
 
 class Sandbox : public Solus::Application

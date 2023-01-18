@@ -6,25 +6,28 @@
 
 namespace Solus {
 
-	OrthographicCameraController::OrthographicCameraController(float aspectratio, bool rotation)
-		: m_AspectRatio(aspectratio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)
+	OrthographicCameraController::OrthographicCameraController(float aspectratio, glm::vec3 position, bool rotation, bool movement, bool canZoom)
+		: m_AspectRatio(aspectratio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_CameraPosition(-position), m_Movement(movement), m_CanZoom(canZoom), m_Rotation(rotation)
 	{
 
 	}
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
-		if (Input::IsKeyPressed(SU_KEY_D))
-			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
+		if (m_Movement)
+		{
+			if (Input::IsKeyPressed(SU_KEY_D))
+				m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
 
-		else if (Input::IsKeyPressed(SU_KEY_A))
-			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
+			else if (Input::IsKeyPressed(SU_KEY_A))
+				m_CameraPosition.x += m_CameraTranslationSpeed * ts;
 
-		if (Input::IsKeyPressed(SU_KEY_S))
-			m_CameraPosition.y += m_CameraTranslationSpeed * ts;
+			if (Input::IsKeyPressed(SU_KEY_S))
+				m_CameraPosition.y += m_CameraTranslationSpeed * ts;
 
-		else if (Input::IsKeyPressed(SU_KEY_W))
-			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+			else if (Input::IsKeyPressed(SU_KEY_W))
+				m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+		}
 
 		if (m_Rotation)
 		{
@@ -50,16 +53,24 @@ namespace Solus {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
-		m_ZoomLevel -= e.GetYOffset();
-		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		if (m_CanZoom)
+		{
+			m_ZoomLevel -= e.GetYOffset();
+			m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
+			m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+			return false;
+		}
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowRezise(WindowResizeEvent& e)
 	{
-		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		if (m_CanZoom)
+		{
+			m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
+			m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+			return false;
+		}
 		return false;
 	}
 

@@ -24,8 +24,8 @@ layout(location = 0) out vec4 color;
 
 in vec2 v_TexCoord;
 
-uniform sampler2D u_Texture;
 uniform vec4 u_Colour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+uniform sampler2D u_Texture;
 
 void main()
 {
