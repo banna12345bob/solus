@@ -3,10 +3,10 @@
 	url = https://github.com/gabime/spdlog
 [submodule "Solus/vendor/GLFW"]
 	path = Solus/vendor/GLFW
-	url = https://github.com/TheCherno/glfw
+	url = https://github.com/banna12345bob/glfw
 [submodule "Solus/vendor/ImGui"]
 	path = Solus/vendor/ImGui
-	url = https://github.com/TheCherno/imgui/
+	url = https://github.com/banna12345bob/imgui/
 [submodule "Solus/vendor/glm"]
 	path = Solus/vendor/glm
 	url = https://github.com/g-truc/glm

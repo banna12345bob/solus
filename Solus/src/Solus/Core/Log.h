@@ -36,7 +36,7 @@ namespace Solus {
 #define SU_WARN(...)
 #define SU_ERROR(...)
 #define SU_FATAL(...)
-#else
+#elif SU_DEBUG
 /* ------------------------- Core log macros ------------------------- */
 #define SU_CORE_TRACE(...)   ::Solus::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define SU_CORE_INFO(...)    ::Solus::Log::GetCoreLogger()->info(__VA_ARGS__)

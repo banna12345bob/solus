@@ -10,7 +10,7 @@ namespace Solus {
 		switch (Renderer::GetAPI())
 		{
 		case RenderAPI::API::None:    SU_CORE_ASSERT(false, "RenderAPI::None is currently not supported!"); return nullptr;
-		case RenderAPI::API::OpenGL:  return std::make_shared<OpenGLShader>(filepath);
+		case RenderAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown RenderAPI!");
@@ -22,7 +22,7 @@ namespace Solus {
 		switch (Renderer::GetAPI())
 		{
 			case RenderAPI::API::None:    SU_CORE_ASSERT(false, "RenderAPI::None is currently not supported!"); return nullptr;
-			case RenderAPI::API::OpenGL:  return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+			case RenderAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown RenderAPI!");
