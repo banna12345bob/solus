@@ -17,7 +17,7 @@ namespace Solus {
 	class Application
 	{
 	public:
-		Application();
+		Application(WindowProps props);
 		virtual ~Application();
 
 		void Run();

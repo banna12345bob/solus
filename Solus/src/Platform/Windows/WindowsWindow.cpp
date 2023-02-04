@@ -4,7 +4,7 @@
 #include "Solus/Events/AllEvents.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 
-
+#include <stb_image.h>
 
 namespace Solus {
 
@@ -47,7 +47,19 @@ namespace Solus {
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		if (props.fullscreen && !(props.nativeResulution))
+		{
+			m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), glfwGetPrimaryMonitor(), nullptr);
+		}
+		else if(props.fullscreen && props.nativeResulution)
+		{
+			const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+			m_Window = glfwCreateWindow((int)mode->width, (int)mode->height, m_Data.Title.c_str(), glfwGetPrimaryMonitor(), nullptr);
+		}
+		else
+		{
+			m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		}
 
 		s_GLFWWindowCount++;
 
@@ -58,6 +70,11 @@ namespace Solus {
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
+		GLFWimage images[1];
+		images[0].pixels = stbi_load(props.pathToIcon, &images[0].width, &images[0].height, 0, 4); //rgba channels 
+		glfwSetWindowIcon(m_Window, 1, images);
+		stbi_image_free(images[0].pixels);
+		
 		//Event callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{

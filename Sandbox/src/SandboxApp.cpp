@@ -167,7 +167,8 @@ private:
 class Sandbox : public Solus::Application
 {
 public:
-	Sandbox()
+	Sandbox(Solus::WindowProps props)
+		: Solus::Application(props)
 	{
 		//PushLayer(new ExampleLayer());
 		PushLayer(new Sandbox2D());
@@ -180,5 +181,6 @@ public:
 
 Solus::Application* Solus::CreateApplication()
 {
-	return new Sandbox();
+	Solus::WindowProps props(Solus::WindowProps("Sandbox", 1280, 720, "assets/textures/oak_log.png"));
+	return new Sandbox(props);
 }

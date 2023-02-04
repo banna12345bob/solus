@@ -13,12 +13,11 @@ namespace Solus {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(WindowProps props)
 	{
 		SU_CORE_ASSERT(!s_Instance, "Application already running");
 		s_Instance = this;
-
-		m_Window = Window::Create();
+		m_Window = Window::Create(props);
 		m_Window->SetEventCallback(SU_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
