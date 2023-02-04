@@ -1,5 +1,5 @@
 #include "supch.h"
-#include "OrthographicCameraController.h"
+#include "Solus/Renderer/OrthographicCameraController.h"
 
 #include "Solus/Core/Input.h"
 #include "Solus/Core/KeyCodes.h"

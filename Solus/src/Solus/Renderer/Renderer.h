@@ -1,9 +1,9 @@
 #pragma once
 
-#include "RenderCommand.h"
+#include "Solus/Renderer/RenderCommand.h"
 
-#include "OrthographicCamera.h"
-#include "Shader.h"
+#include "Solus/Renderer/OrthographicCamera.h"
+#include "Solus/Renderer/Shader.h"
 
 namespace Solus {
 	
@@ -11,6 +11,7 @@ namespace Solus {
 	{
 	public:
 		static void Init();
+		static void Shutdown();
 		static void onWindowResize(uint32_t width, uint32_t height);
 
 		static void BeginScene(OrthographicCamera& camera);

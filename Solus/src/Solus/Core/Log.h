@@ -2,13 +2,14 @@
 
 #pragma once
 
-#include "Core.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/fmt/ostr.h"
+#include "Solus/Core/Core.h"
+
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 namespace Solus {
 
-	class SOLUS_API Log
+	class Log
 	{
 	public:
 		static void Init();
@@ -16,8 +17,8 @@ namespace Solus {
 		inline static Ref < spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
 		inline static Ref < spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 	private:
-		static Ref < spdlog::logger> s_CoreLogger;
-		static Ref < spdlog::logger> s_ClientLogger;
+		static Ref<spdlog::logger>s_CoreLogger;
+		static Ref<spdlog::logger>s_ClientLogger;
 	};
 
 }

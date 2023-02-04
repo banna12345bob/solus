@@ -1,12 +1,7 @@
 #include "supch.h"
-#include "LayerStack.h"
+#include "Solus/Core/LayerStack.h"
 
 namespace Solus {
-
-	LayerStack::LayerStack()
-	{
-	}
-
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : m_Layers)

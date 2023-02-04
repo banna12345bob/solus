@@ -1,5 +1,5 @@
 #include "supch.h"
-#include "OpenGLVertexArray.h"
+#include "Platform/OpenGL/OpenGLVertexArray.h"
 
 #include <glad/glad.h>
 
@@ -9,17 +9,17 @@ namespace Solus {
 	{
 		switch (type)
 		{
-		case Solus::ShaderDataType::Float:    return GL_FLOAT;
-		case Solus::ShaderDataType::Float2:   return GL_FLOAT;
-		case Solus::ShaderDataType::Float3:   return GL_FLOAT;
-		case Solus::ShaderDataType::Float4:   return GL_FLOAT;
-		case Solus::ShaderDataType::Mat3:     return GL_FLOAT;
-		case Solus::ShaderDataType::Mat4:     return GL_FLOAT;
-		case Solus::ShaderDataType::Int:      return GL_INT;
-		case Solus::ShaderDataType::Int2:     return GL_INT;
-		case Solus::ShaderDataType::Int3:     return GL_INT;
-		case Solus::ShaderDataType::Int4:     return GL_INT;
-		case Solus::ShaderDataType::Bool:     return GL_BOOL;
+		case ShaderDataType::Float:    return GL_FLOAT;
+		case ShaderDataType::Float2:   return GL_FLOAT;
+		case ShaderDataType::Float3:   return GL_FLOAT;
+		case ShaderDataType::Float4:   return GL_FLOAT;
+		case ShaderDataType::Mat3:     return GL_FLOAT;
+		case ShaderDataType::Mat4:     return GL_FLOAT;
+		case ShaderDataType::Int:      return GL_INT;
+		case ShaderDataType::Int2:     return GL_INT;
+		case ShaderDataType::Int3:     return GL_INT;
+		case ShaderDataType::Int4:     return GL_INT;
+		case ShaderDataType::Bool:     return GL_BOOL;
 		}
 
 		SU_CORE_ASSERT(false, "Unknown ShaderDataType!");

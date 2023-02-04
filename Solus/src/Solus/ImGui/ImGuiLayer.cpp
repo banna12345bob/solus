@@ -1,8 +1,8 @@
 #include "supch.h"
-#include "ImGuiLayer.h"
+#include "Solus/ImGui/ImGuiLayer.h"
 
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
 
 #include "Solus/Core/Application.h"
 

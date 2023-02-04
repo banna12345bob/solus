@@ -1,7 +1,7 @@
 #include "supch.h"
-#include "Texture.h"
+#include "Solus/Renderer/Texture.h"
 
-#include "Renderer.h"
+#include "Solus/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace Solus {

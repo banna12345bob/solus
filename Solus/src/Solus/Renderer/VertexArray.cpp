@@ -1,7 +1,7 @@
 #include "supch.h"
-#include "VertexArray.h"
+#include "Solus/Renderer/VertexArray.h"
 
-#include "Renderer.h"
+#include "Solus/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Solus {

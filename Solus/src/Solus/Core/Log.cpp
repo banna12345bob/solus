@@ -1,14 +1,14 @@
 // SPDLog: https://github.com/gabime/spdlog
 
 #include "supch.h"
-#include "Log.h"
+#include "Solus/Core/Log.h"
 
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace Solus {
 
-	std::shared_ptr < spdlog::logger> Log::s_CoreLogger;
-	std::shared_ptr < spdlog::logger> Log::s_ClientLogger;
+	Ref<spdlog::logger>Log::s_CoreLogger;
+	Ref<spdlog::logger>Log::s_ClientLogger;
 
 	void Log::Init()
 	{

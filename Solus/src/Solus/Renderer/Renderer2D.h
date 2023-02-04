@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Solus/Renderer/OrthographicCamera.h"
-#include "Texture.h"
+#include "Solus/Renderer/Texture.h"
 
 namespace Solus {
 	class Renderer2D

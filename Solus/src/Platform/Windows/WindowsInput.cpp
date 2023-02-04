@@ -1,5 +1,5 @@
 #include "supch.h"
-#include "WindowsInput.h"
+#include "Platform/Windows/WindowsInput.h"
 
 #include <GLFW/glfw3.h>
 #include "Solus/Core/Application.h"

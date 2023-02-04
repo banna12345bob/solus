@@ -1,7 +1,7 @@
 #include "supch.h"
-#include "Shader.h"
+#include "Solus/Renderer/Shader.h"
 
-#include "Renderer.h"
+#include "Solus/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
 namespace Solus {

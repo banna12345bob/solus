@@ -1,4 +1,5 @@
 #pragma once
+#include "Solus/Core/Core.h"
 
 #ifdef SU_PLATFORM_WINDOWS
 

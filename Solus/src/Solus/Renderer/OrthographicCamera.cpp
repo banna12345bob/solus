@@ -1,5 +1,5 @@
 #include "supch.h"
-#include "OrthographicCamera.h"
+#include "Solus/Renderer/OrthographicCamera.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core.h"
+#include "Solus/Core/Core.h"
 
-#include "Window.h"
+#include "Solus/Core/Window.h"
 #include "Solus/Core/LayerStack.h"
 #include "Solus/Events/Event.h"
 #include "Solus/Events/ApplicationEvent.h"
@@ -14,11 +14,11 @@
 
 namespace Solus {
 
-	class SOLUS_API Application
+	class Application
 	{
 	public:
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		void Run();
 

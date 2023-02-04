@@ -2,6 +2,8 @@
 
 //	Only to be used by applications
 
+#include "Solus/Core/Core.h"
+
 #include "Solus/Core/Application.h"
 #include "Solus/Core/Layer.h"
 #include "Solus/Core/Log.h"

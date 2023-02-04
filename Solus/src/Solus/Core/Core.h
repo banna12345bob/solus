@@ -32,18 +32,6 @@
 	#error "What kind of platform are you using? What ever it is it's not supported"
 #endif
 
-#ifdef SU_PLATFORM_WINDOWS
-	#ifdef SU_DYNAMIC_LINK
-		#ifdef SU_BUILD_DLL
-			#define SOLUS_API __declspec(dllexport)
-		#else
-			#define SOLUS_API __declspec(dllimport)
-		#endif
-	#else
-		#define	SOLUS_API
-	#endif
-#endif
-
 #ifdef SU_DEBUG
 	#define SU_ENABLE_ASSERTS
 #endif

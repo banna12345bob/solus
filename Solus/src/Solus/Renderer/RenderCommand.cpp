@@ -1,10 +1,9 @@
 #include "supch.h"
-#include "RenderCommand.h"
 
-#include "Platform/OpenGL/OpenGLRenderAPI.h"
+#include "Solus/Renderer/RenderCommand.h"
 
 namespace Solus {
 
-	Scope<RenderAPI> RenderCommand::s_RenderAPI = CreateScope<OpenGLRenderAPI>();
+	Scope<RenderAPI> RenderCommand::s_RenderAPI = RenderAPI::Create();
 
 }
