@@ -4,6 +4,8 @@
 #include "Solus/Events/AllEvents.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 
+#include "Solus/Renderer/Renderer.h"
+
 #include <stb_image.h>
 
 namespace Solus {
@@ -13,11 +15,6 @@ namespace Solus {
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 		SU_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
-	}
-
-	Scope<Window> Window::Create(const WindowProps& props)
-	{
-		return CreateScope<WindowsWindow>(props);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -52,6 +49,10 @@ namespace Solus {
 
 		{
 			SU_PROFILE_SCOPE("glfwCreateWindow");
+			#if defined(SU_DEBUG)
+				if (Renderer::GetAPI() == RenderAPI::API::OpenGL)
+					glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+			#endif
 			if (props.fullscreen && !(props.nativeResulution))
 			{
 				m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), glfwGetPrimaryMonitor(), nullptr);
@@ -74,7 +75,7 @@ namespace Solus {
 
 		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(false);
+		SetVSync(true);
 
 		GLFWimage images[1];
 		images[0].pixels = stbi_load(props.pathToIcon, &images[0].width, &images[0].height, 0, 4); //rgba channels 
