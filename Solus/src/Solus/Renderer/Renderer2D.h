@@ -16,10 +16,8 @@ namespace Solus {
 		// Primitives
 		static void DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const glm::vec4& colour);
 		static void DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const glm::vec4& colour);
-		static void DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture);
-		static void DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture);
-		static void DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& colour);
-		static void DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& colour);
+		static void DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& colour = glm::vec4(1.0f), float tilingFactor = 1.0f);
+		static void DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& colour = glm::vec4(1.0f), float tilingFactor = 1.0f);
 	};
 
 }
