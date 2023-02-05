@@ -23,21 +23,6 @@ namespace Solus {
 
 }
 
-#if SU_DIST
-/* ------------------------- Core log macros ------------------------- */
-#define SU_CORE_TRACE(...)
-#define SU_CORE_INFO(...)
-#define SU_CORE_WARN(...)
-#define SU_CORE_ERROR(...)
-#define SU_CORE_FATAL(...)
-
-/* ------------------------ Client log macros ------------------------ */
-#define SU_TRACE(...)
-#define SU_INFO(...)
-#define SU_WARN(...)
-#define SU_ERROR(...)
-#define SU_FATAL(...)
-#else
 /* ------------------------- Core log macros ------------------------- */
 #define SU_CORE_TRACE(...)   ::Solus::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define SU_CORE_INFO(...)    ::Solus::Log::GetCoreLogger()->info(__VA_ARGS__)
@@ -51,4 +36,3 @@ namespace Solus {
 #define SU_WARN(...)         ::Solus::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define SU_ERROR(...)        ::Solus::Log::GetClientLogger()->error(__VA_ARGS__)
 #define SU_FATAL(...)        ::Solus::Log::GetClientLogger()->critical(__VA_ARGS__)
-#endif
