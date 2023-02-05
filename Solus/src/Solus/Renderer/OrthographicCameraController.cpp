@@ -14,6 +14,7 @@ namespace Solus {
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
+		SU_PROFILE_FUNCTION();
 		if (m_Movement)
 		{
 			if (Input::IsKeyPressed(SU_KEY_D))
@@ -46,6 +47,7 @@ namespace Solus {
 
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
+		SU_PROFILE_FUNCTION();
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(SU_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(SU_BIND_EVENT_FN(OrthographicCameraController::OnWindowRezise));
@@ -53,6 +55,7 @@ namespace Solus {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		SU_PROFILE_FUNCTION();
 		if (m_CanZoom)
 		{
 			m_ZoomLevel -= e.GetYOffset();
@@ -65,6 +68,7 @@ namespace Solus {
 
 	bool OrthographicCameraController::OnWindowRezise(WindowResizeEvent& e)
 	{
+		SU_PROFILE_FUNCTION();
 		if (m_CanZoom)
 		{
 			m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();

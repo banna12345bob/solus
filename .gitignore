@@ -9,3 +9,6 @@ bin-int/
 *filters
 *user
 *.ini
+Sandbox/SolusProfile-Runtime.json
+Sandbox/SolusProfile-Shutdown.json
+Sandbox/SolusProfile-Startup.json

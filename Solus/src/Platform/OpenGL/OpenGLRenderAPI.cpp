@@ -6,6 +6,7 @@
 namespace Solus {
 	void OpenGLRenderAPI::Init()
 	{
+		SU_PROFILE_FUNCTION();
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_MULTISAMPLE);
 		glEnable(GL_BLEND);

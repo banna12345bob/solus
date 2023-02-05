@@ -15,6 +15,8 @@
 
 #include "Solus/Core/Log.h"
 
+#include "Solus/Debug/Instrumentor.h"
+
 #ifdef SU_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

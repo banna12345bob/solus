@@ -9,6 +9,7 @@ namespace Solus {
 
 	void Renderer::Init()
 	{
+		SU_PROFILE_FUNCTION();
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

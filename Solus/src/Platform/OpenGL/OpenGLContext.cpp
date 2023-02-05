@@ -15,6 +15,7 @@ namespace Solus {
 
 	void OpenGLContext::Init()
 	{
+		SU_PROFILE_FUNCTION();
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		SU_CORE_ASSERT(status, "Failed to initalise glad");
@@ -36,6 +37,7 @@ namespace Solus {
 
 	void OpenGLContext::SwapBuffers()
 	{
+		SU_PROFILE_FUNCTION();
 		glfwSwapBuffers(m_WindowHandle);
 	}
 

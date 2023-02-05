@@ -18,6 +18,7 @@ namespace Solus {
 
 	void ImGuiLayer::OnAttach()
 	{
+		SU_PROFILE_FUNCTION();
 		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -51,6 +52,7 @@ namespace Solus {
 
 	void ImGuiLayer::OnDetach()
 	{
+		SU_PROFILE_FUNCTION();
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -59,6 +61,7 @@ namespace Solus {
 
 	void ImGuiLayer::Begin()
 	{
+		SU_PROFILE_FUNCTION();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -66,6 +69,7 @@ namespace Solus {
 
 	void ImGuiLayer::End()
 	{
+		SU_PROFILE_FUNCTION();
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());

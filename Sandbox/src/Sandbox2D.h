@@ -21,14 +21,6 @@ private:
 	Solus::Ref<Solus::Shader> m_flatColourShader;
 	Solus::Ref<Solus::Texture> m_CheckerboardTexture;
 
-	struct ProfileResult
-	{
-		const char* Name;
-		float Time;
-	};
-
-	std::vector<ProfileResult> m_ProfileResults;
-
 	float m_Position[2] = { 0.0f, 0.0f };
 	float m_CheckerboardPosition[2] = {0.0f, 0.0f};
 	float m_Scale[2] = { 1.0f, 1.0f };

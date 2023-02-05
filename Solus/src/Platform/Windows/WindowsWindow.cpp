@@ -22,16 +22,19 @@ namespace Solus {
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		SU_PROFILE_FUNCTION();
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		SU_PROFILE_FUNCTION();
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		SU_PROFILE_FUNCTION();
 		//Sets window's title, width and height to default
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
@@ -47,28 +50,31 @@ namespace Solus {
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		if (props.fullscreen && !(props.nativeResulution))
 		{
-			m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), glfwGetPrimaryMonitor(), nullptr);
-		}
-		else if(props.fullscreen && props.nativeResulution)
-		{
-			const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-			m_Window = glfwCreateWindow((int)mode->width, (int)mode->height, m_Data.Title.c_str(), glfwGetPrimaryMonitor(), nullptr);
-		}
-		else
-		{
-			m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		}
+			SU_PROFILE_SCOPE("glfwCreateWindow");
+			if (props.fullscreen && !(props.nativeResulution))
+			{
+				m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), glfwGetPrimaryMonitor(), nullptr);
+			}
+			else if (props.fullscreen && props.nativeResulution)
+			{
+				const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+				m_Window = glfwCreateWindow((int)mode->width, (int)mode->height, m_Data.Title.c_str(), glfwGetPrimaryMonitor(), nullptr);
+			}
+			else
+			{
+				m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			}
 
-		s_GLFWWindowCount++;
+			s_GLFWWindowCount++;
+		}
 
 		m_Context = OpenGLContext::Create(m_Window);
 		m_Context->Init();
 
 		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(true);
+		SetVSync(false);
 
 		GLFWimage images[1];
 		images[0].pixels = stbi_load(props.pathToIcon, &images[0].width, &images[0].height, 0, 4); //rgba channels 
@@ -167,6 +173,7 @@ namespace Solus {
 
 	void WindowsWindow::Shutdown()
 	{
+		SU_PROFILE_FUNCTION();
 		glfwDestroyWindow(m_Window);
 		if (s_GLFWWindowCount == 0)
 		{
@@ -177,12 +184,14 @@ namespace Solus {
 
 	void WindowsWindow::OnUpdate()
 	{
+		SU_PROFILE_FUNCTION();
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		SU_PROFILE_FUNCTION();
 		if (enabled)
 			glfwSwapInterval(1);
 		else
