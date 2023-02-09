@@ -14,54 +14,54 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray = Solus::VertexArray::Create();
+		//m_VertexArray = Solus::VertexArray::Create();
 
-		float vertices[3 * 7] =
-		{	/*   Positions   */		/* Colours RGB Format */
-			-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 0.5f, 0.0f,		0.0f, 0.0f, 1.0f, 1.0f
-		};
+		//float vertices[3 * 7] =
+		//{	/*   Positions   */		/* Colours RGB Format */
+			//-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f, 1.0f,
+			//0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f, 1.0f,
+			//0.0f, 0.5f, 0.0f,		0.0f, 0.0f, 1.0f, 1.0f
+		//};
 
-		Solus::Ref<Solus::VertexBuffer> vertexBuffer;
-		vertexBuffer = Solus::VertexBuffer::Create(vertices, sizeof(vertices));
+		//Solus::Ref<Solus::VertexBuffer> vertexBuffer;
+		//vertexBuffer = Solus::VertexBuffer::Create(vertices, sizeof(vertices));
 
-		{
-			Solus::BufferLayout layout = {
-				{ Solus::ShaderDataType::Float3, "a_Position" },
-				{ Solus::ShaderDataType::Float4, "a_Colour" }
-			};
+		//{
+			//Solus::BufferLayout layout = {
+				//{ Solus::ShaderDataType::Float3, "a_Position" },
+				//{ Solus::ShaderDataType::Float4, "a_Colour" }
+			//};
 
-			vertexBuffer->SetLayout(layout);
-			m_VertexArray->AddVertexBuffer(vertexBuffer);
-		}
+			//vertexBuffer->SetLayout(layout);
+			//m_VertexArray->AddVertexBuffer(vertexBuffer);
+		//}
 
-		unsigned int indices[3] = { 0, 1, 2 };
-		Solus::Ref<Solus::IndexBuffer> indexBuffer;
-		indexBuffer = Solus::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-		m_VertexArray->SetIndexBuffer(indexBuffer);
+		//unsigned int indices[3] = { 0, 1, 2 };
+		//Solus::Ref<Solus::IndexBuffer> indexBuffer;
+		//indexBuffer = Solus::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+		//m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA = Solus::VertexArray::Create();
+		//m_SquareVA = Solus::VertexArray::Create();
 
-		float squareVerticies[5 * 4] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
-		};
+		//float squareVerticies[5 * 4] = {
+			//-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 //0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 //0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			//-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+		//};
 
-		Solus::Ref<Solus::VertexBuffer> squareVB;
-		squareVB = Solus::VertexBuffer::Create(squareVerticies, sizeof(squareVerticies));
-		squareVB->SetLayout({
-			{ Solus::ShaderDataType::Float3, "a_Position" },
-			{ Solus::ShaderDataType::Float2, "a_TexCoord" }
-			});
-		m_SquareVA->AddVertexBuffer(squareVB);
+		//Solus::Ref<Solus::VertexBuffer> squareVB;
+		//squareVB = Solus::VertexBuffer::Create(squareVerticies, sizeof(squareVerticies));
+		//squareVB->SetLayout({
+			//{ Solus::ShaderDataType::Float3, "a_Position" },
+			//{ Solus::ShaderDataType::Float2, "a_TexCoord" }
+			//});
+		//m_SquareVA->AddVertexBuffer(squareVB);
 
-		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		Solus::Ref<Solus::IndexBuffer> squareIB;
-		squareIB = Solus::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
-		m_SquareVA->SetIndexBuffer(squareIB);
+		//uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		//Solus::Ref<Solus::IndexBuffer> squareIB;
+		//squareIB = Solus::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
+		//m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -96,8 +96,8 @@ public:
 			}
 		)";
 
-		m_Shader = Solus::Shader::Create("VertexPosColour", vertexSrc, fragmentSrc);
-		m_ShaderLibary.Add("defaultShader", m_Shader);
+		//m_Shader = Solus::Shader::Create("VertexPosColour", vertexSrc, fragmentSrc);
+		//m_ShaderLibary.Add("defaultShader", m_Shader);
 
 		auto m_flatColourShader = m_ShaderLibary.Load("assets/shaders/flatColour.glsl");
 
@@ -108,6 +108,7 @@ public:
 
 		m_TextureShader->Bind();
 		m_TextureShader->SetInt("u_Texture", 0);
+		Solus::FontRenderer::Create("C:/Windows/Fonts/Arial.ttf");
 	}
 
 	void OnUpdate(Solus::Timestep time) override
@@ -132,8 +133,9 @@ public:
 
 			}
 		}
-
 		Solus::Renderer2D::EndScene();
+
+		Solus::FontRenderer::RenderText("a", glm::vec2(0.0f), 0, glm::vec2(1), m_squareColour);
 	}
 
 	virtual void OnImGuiRender() override 
@@ -158,6 +160,8 @@ private:
 	Solus::Ref<Solus::VertexArray> m_SquareVA;
 
 	Solus::Ref<Solus::Texture2D> m_Texture, m_OakLogTex;
+	
+	Solus::Ref <Solus::FontRenderer> m_FontRenderer;
 
 	Solus::OrthographicCameraController m_CameraController;
 
@@ -169,8 +173,8 @@ class Sandbox : public Solus::Application
 public:
 	Sandbox()
 	{
-		//PushLayer(new ExampleLayer());
-		PushLayer(new Sandbox2D());
+		PushLayer(new ExampleLayer());
+		//PushLayer(new Sandbox2D());
 	}
 	~Sandbox()
 	{

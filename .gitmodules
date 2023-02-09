@@ -10,3 +10,6 @@
 [submodule "Solus/vendor/glm"]
 	path = Solus/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "solus/vendor/msdf-atlas-gen"]
+	path = solus/vendor/msdf-atlas-gen
+	url = https://github.com/TheCherno/msdf-atlas-gen

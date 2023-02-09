@@ -17,11 +17,14 @@ IncludeDir["Glad"] = "Solus/vendor/Glad/include"
 IncludeDir["ImGui"] = "Solus/vendor/ImGui"
 IncludeDir["glm"] = "Solus/vendor/glm"
 IncludeDir["stb_image"] = "Solus/vendor/stb_image"
+IncludeDir["msdfgen"] = "Solus/vendor/msdf-atlas-gen/msdfgen"
+IncludeDir["msdf_atlas_gen"] = "Solus/vendor/msdf-atlas-gen/msdf-atlas-gen"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
 	include "Solus/vendor/Glad"
 	include "Solus/vendor/ImGui"
+	include "Solus/vendor/msdf-atlas-gen"
 
 group ""
 
@@ -30,7 +33,7 @@ project "Solus"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -58,7 +61,9 @@ project "Solus"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.msdfgen}",
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.msdf_atlas_gen}"
 	}
 
 	links 
@@ -66,6 +71,7 @@ project "Solus"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"msdf-atlas-gen",
 		"opengl32.lib"
 	}
 
@@ -92,13 +98,14 @@ project "Solus"
 		defines "SU_DIST"
 		runtime "Release"
 		optimize "on"
+		symbols "off"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -145,6 +152,6 @@ project "Sandbox"
 		defines "SU_DIST"
 		runtime "Release"
 		optimize "on"
-		symbols "on"
+		symbols "off"
 		kind "WindowedApp"
 		entrypoint "mainCRTStartup"

@@ -29,4 +29,5 @@
 #include "Solus/Renderer/VertexArray.h"
 #include "Solus/Renderer/OrthographicCamera.h"
 #include "Solus/Renderer/OrthographicCamera.h"
+#include "Solus/Renderer/FontRenderer.h"
 /*-------------------------------------------------------*/
