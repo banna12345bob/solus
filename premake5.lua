@@ -17,11 +17,13 @@ IncludeDir["Glad"] = "Solus/vendor/Glad/include"
 IncludeDir["ImGui"] = "Solus/vendor/ImGui"
 IncludeDir["glm"] = "Solus/vendor/glm"
 IncludeDir["stb_image"] = "Solus/vendor/stb_image"
+IncludeDir["lubnyquist"] = "Solus/vendor/lubnyquist/include"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
 	include "Solus/vendor/Glad"
 	include "Solus/vendor/ImGui"
+	include "Solus/vendor/lubnyquist"
 
 group ""
 
@@ -30,7 +32,7 @@ project "Solus"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -58,7 +60,8 @@ project "Solus"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.lubnyquist}"
 	}
 
 	links 
@@ -66,6 +69,7 @@ project "Solus"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"lubnyquist",
 		"opengl32.lib"
 	}
 
@@ -100,7 +104,7 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
