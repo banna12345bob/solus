@@ -21,7 +21,6 @@ namespace Solus {
 
 	class AudioDevice
 	{
-	private:
 		Scope<RtAudio> rtaudio;
 	public:
 		AudioDeviceInfo info;

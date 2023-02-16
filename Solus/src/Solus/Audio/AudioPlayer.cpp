@@ -8,9 +8,9 @@ namespace Solus {
 	{
 		const int desiredSampleRate = 44100;
 		const int desiredChannelCount = 2;
-		AudioDevice m_MyDevice(desiredChannelCount, desiredSampleRate);
-		m_MyDevice.Open(m_MyDevice.info.id);
-		Ref<nqr::AudioData> m_FileData = CreateRef<nqr::AudioData>();
+		m_MyDevice = CreateRef<AudioDevice>(desiredChannelCount, desiredSampleRate);
+		m_MyDevice->Open(m_MyDevice->info.id);
+		m_FileData = CreateRef<nqr::AudioData>();
 	}
 
 	// Will need implimenting from example
@@ -101,7 +101,7 @@ namespace Solus {
 
 	bool AudioDevice::Play(const std::vector<float>& data)
 	{
-		if (!rtaudio->isStreamOpen()) return false;
+		SU_CORE_ASSERT(rtaudio->isStreamOpen(), "rtaudio stream closed!");
 
 		// Each frame is the (size/2) cause interleaved channels! 
 		int sizeInFrames = ((int)data.size()) / (BUFFER_LENGTH);
