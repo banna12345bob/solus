@@ -13,6 +13,8 @@ void Sandbox2D::OnAttach()
 {
 	SU_PROFILE_FUNCTION();
 	m_CheckerboardTexture = Solus::Texture2D::Create("assets/textures/Checkerboard.png");
+	Solus::audioPlayer m_AudioPlayer = Solus::audioPlayer();
+	m_AudioPlayer.Play("assets/audio/test.ogg");
 }
 
 void Sandbox2D::OnDetach()

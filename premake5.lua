@@ -17,13 +17,15 @@ IncludeDir["Glad"] = "Solus/vendor/Glad/include"
 IncludeDir["ImGui"] = "Solus/vendor/ImGui"
 IncludeDir["glm"] = "Solus/vendor/glm"
 IncludeDir["stb_image"] = "Solus/vendor/stb_image"
-IncludeDir["lubnyquist"] = "Solus/vendor/lubnyquist/include"
+IncludeDir["libnyquist"] = "Solus/vendor/libnyquist/include"
+IncludeDir["rtaudio"] = "Solus/vendor/libnyquist/third_party/rtaudio"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
 	include "Solus/vendor/Glad"
 	include "Solus/vendor/ImGui"
-	include "Solus/vendor/lubnyquist"
+	include "Solus/vendor/libnyquist"
+	include "Solus/vendor/libnyquist/third_party/rtaudio"
 
 group ""
 
@@ -61,7 +63,8 @@ project "Solus"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.lubnyquist}"
+		"%{IncludeDir.libnyquist}",
+		"%{IncludeDir.rtaudio}"
 	}
 
 	links 
@@ -69,7 +72,8 @@ project "Solus"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"lubnyquist",
+		"libnyquist",
+		"rtAudio",
 		"opengl32.lib"
 	}
 
@@ -120,6 +124,8 @@ project "Sandbox"
 		"Solus/vendor/spdlog/include",
 		"Solus/src",
 		"Solus/vendor",
+		"%{IncludeDir.libnyquist}",
+		"%{IncludeDir.rtaudio}",
 		"%{IncludeDir.glm}"
 	}
 
