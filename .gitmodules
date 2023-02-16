@@ -10,6 +10,6 @@
 [submodule "Solus/vendor/glm"]
 	path = Solus/vendor/glm
 	url = https://github.com/g-truc/glm
-[submodule "solus/vendor/libnyquist"]
-	path = solus/vendor/libnyquist
+[submodule "Solus/vendor/libnyquist"]
+	path = Solus/vendor/libnyquist
 	url = https://github.com/banna12345bob/libnyquist
