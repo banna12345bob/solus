@@ -17,11 +17,15 @@ IncludeDir["Glad"] = "Solus/vendor/Glad/include"
 IncludeDir["ImGui"] = "Solus/vendor/ImGui"
 IncludeDir["glm"] = "Solus/vendor/glm"
 IncludeDir["stb_image"] = "Solus/vendor/stb_image"
+IncludeDir["libnyquist"] = "Solus/vendor/libnyquist/include"
+IncludeDir["rtaudio"] = "Solus/vendor/libnyquist/third_party/rtaudio"
 
 group "Dependencies"
 	include "Solus/vendor/GLFW"
 	include "Solus/vendor/Glad"
 	include "Solus/vendor/ImGui"
+	include "Solus/vendor/libnyquist"
+	include "Solus/vendor/libnyquist/third_party/rtaudio"
 
 group ""
 
@@ -30,7 +34,7 @@ project "Solus"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -58,7 +62,9 @@ project "Solus"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.libnyquist}",
+		"%{IncludeDir.rtaudio}"
 	}
 
 	links 
@@ -66,6 +72,8 @@ project "Solus"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"libnyquist",
+		"rtAudio",
 		"opengl32.lib"
 	}
 
@@ -100,7 +108,7 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -116,6 +124,8 @@ project "Sandbox"
 		"Solus/vendor/spdlog/include",
 		"Solus/src",
 		"Solus/vendor",
+		"%{IncludeDir.libnyquist}",
+		"%{IncludeDir.rtaudio}",
 		"%{IncludeDir.glm}"
 	}
 

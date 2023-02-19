@@ -32,3 +32,7 @@
 #include "Solus/Renderer/OrthographicCamera.h"
 #include "Solus/Renderer/OrthographicCamera.h"
 /*-------------------------------------------------------*/
+
+/*------------------------Audio-------------------------*/
+#include "Solus/Audio/AudioPlayer.h"
+/*------------------------------------------------------*/

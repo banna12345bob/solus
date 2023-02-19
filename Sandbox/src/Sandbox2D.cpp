@@ -64,6 +64,16 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::SliderFloat("Roation", m_CheckerboardRotation, 0, 360, "%.3f", 1.0f);
 	ImGui::SliderFloat("TilingFactor", m_TilingFactor, 0, 10, "%.3f", 1.0f);
 	ImGui::End();
+
+	ImGui::Begin("Audio test");
+
+	bool playTest2Ch = ImGui::Button("Play STEREO test audio");
+	if (playTest2Ch) m_AudioPlayer.PlayThreaded("assets/audio/test (2ch).wav");
+
+	bool playTest1Ch = ImGui::Button("Play MONO test audio");
+	if (playTest1Ch) m_AudioPlayer.PlayThreaded("assets/audio/test (1ch).wav");
+
+	ImGui::End();
 }
 
 void Sandbox2D::OnEvent(Solus::Event& event)
