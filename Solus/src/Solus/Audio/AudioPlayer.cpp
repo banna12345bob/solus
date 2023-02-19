@@ -3,35 +3,66 @@
 #include "AudioPlayer.h"
 #include "RingBuffer.h"
 
+#include <libnyquist/Common.h>
+
 namespace Solus {
-	audioPlayer::audioPlayer()
+	audioPlayer::audioPlayer(uint32_t desiredSampleRate)
 	{
-		const int desiredSampleRate = 44100;
-		const int desiredChannelCount = 2;
-		m_MyDevice = CreateRef<AudioDevice>(desiredChannelCount, desiredSampleRate);
+		SU_PROFILE_FUNCTION();
+		m_MyDevice = CreateRef<AudioDevice>(CHANNELS, desiredSampleRate);
 		m_MyDevice->Open(m_MyDevice->info.id);
 		m_FileData = CreateRef<nqr::AudioData>();
 	}
 
-	// Will need implimenting from example
+	// Implimented for libnyquist example
 	void audioPlayer::Play(std::string filePath)
 	{
-		auto memory = nqr::ReadFile(filePath);
-		std::string extension = filePath.substr(filePath.find(".") + 1);
-		m_Loader.Load(m_FileData.get(), extension, memory.buffer);
+		SU_PROFILE_FUNCTION();
+		try {
+			auto memory = nqr::ReadFile(filePath);
+			std::string extension = filePath.substr(filePath.find(".") + 1);
+			m_Loader.Load(m_FileData.get(), extension, memory.buffer);
 
-		SU_CORE_INFO("Playing STEREO for: {0} seconds...", m_FileData->lengthSeconds);
-		m_MyDevice->Play(m_FileData->samples);
+			if (m_FileData->channelCount == 1)
+			{
+				SU_CORE_INFO("Playing MONO for: {0} seconds...", m_FileData->lengthSeconds);
+				std::vector<float> stereoCopy(m_FileData->samples.size() * 2);
+				nqr::MonoToStereo(m_FileData->samples.data(), stereoCopy.data(), m_FileData->samples.size());
+				m_MyDevice->Play(stereoCopy);
+			}
+			else
+			{
+				SU_CORE_INFO("Playing STEREO for: {0} seconds...", m_FileData->lengthSeconds);
+				m_MyDevice->Play(m_FileData->samples);
+			}
+		}
+		catch (nqr::UnsupportedExtensionEx)
+		{
+			SU_CORE_ASSERT(false, "UNSUPPORTED FILE TYPE!");
+		}
+		catch (nqr::LoadPathNotImplEx)
+		{
+			SU_CORE_ASSERT(false, "Loading from path not implemented!");
+		}
+		catch (nqr::LoadBufferNotImplEx)
+		{
+			SU_CORE_ASSERT(false, "Loading from buffer not implemented!");
+		}
+		catch (const std::exception& e)
+		{
+			SU_CORE_FATAL("Caught: {0}", e.what());
+		}
 	}
 
 	static RingBufferT<float> buffer(BUFFER_LENGTH);
 
 	static int rt_callback(void* output_buffer, void* input_buffer, uint32_t num_bufferframes, double stream_time, RtAudioStreamStatus status, void* user_data)
 	{
-		if (status) SU_CORE_INFO("[rtaudio] buffer over or underflow");
+		SU_PROFILE_FUNCTION();
+		if (status)	SU_CORE_INFO("[rtaudio] buffer over or underflow");
 
 		// Playback
-		if (buffer.getAvailableRead()) buffer.read((float*)output_buffer, BUFFER_LENGTH);
+		if (buffer.getAvailableRead()) buffer.read((float*)output_buffer, BUFFER_LENGTH); 
 		else memset(output_buffer, 0, BUFFER_LENGTH * sizeof(float));
 
 		return 0;
@@ -39,6 +70,7 @@ namespace Solus {
 
 	AudioDevice::AudioDevice(int numChannels, int sampleRate, int deviceId)
 	{
+		SU_PROFILE_FUNCTION();
 		rtaudio = Scope<RtAudio>(new RtAudio);
 		info.id = (deviceId != -1) ? deviceId : rtaudio->getDefaultOutputDevice();
 		info.numChannels = numChannels;
@@ -48,6 +80,7 @@ namespace Solus {
 
 	AudioDevice::~AudioDevice()
 	{
+		SU_PROFILE_FUNCTION();
 		if (rtaudio)
 		{
 			rtaudio->stopStream();
@@ -60,6 +93,7 @@ namespace Solus {
 
 	bool AudioDevice::Open(const int deviceId)
 	{
+		SU_PROFILE_FUNCTION();
 		SU_CORE_ASSERT(rtaudio, "rtaudio not created yet");
 
 		RtAudio::StreamParameters outputParams;
@@ -84,6 +118,7 @@ namespace Solus {
 
 	int AudioDevice::ListAudioDevices()
 	{
+		SU_PROFILE_FUNCTION();
 		Ref<RtAudio> tempDevice(new RtAudio);
 
 		RtAudio::DeviceInfo info;
@@ -101,6 +136,7 @@ namespace Solus {
 
 	bool AudioDevice::Play(const std::vector<float>& data)
 	{
+		SU_PROFILE_FUNCTION();
 		SU_CORE_ASSERT(rtaudio->isStreamOpen(), "rtaudio stream closed!");
 
 		// Each frame is the (size/2) cause interleaved channels! 
@@ -110,7 +146,8 @@ namespace Solus {
 
 		while (writeCount < sizeInFrames)
 		{
-			bool status = buffer.write((data.data() + (writeCount * BUFFER_LENGTH)), BUFFER_LENGTH);
+			auto a = data.data() + (writeCount * BUFFER_LENGTH);
+			bool status = buffer.write(a, BUFFER_LENGTH);
 			if (status) writeCount++;
 		}
 

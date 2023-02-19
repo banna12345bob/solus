@@ -13,8 +13,6 @@ void Sandbox2D::OnAttach()
 {
 	SU_PROFILE_FUNCTION();
 	m_CheckerboardTexture = Solus::Texture2D::Create("assets/textures/Checkerboard.png");
-	Solus::audioPlayer m_AudioPlayer = Solus::audioPlayer();
-	m_AudioPlayer.Play("assets/audio/test.wav");
 }
 
 void Sandbox2D::OnDetach()
@@ -65,6 +63,16 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::SliderFloat2("Scale", m_CheckerboardScale, 0, 10, "%.3f", 1.0f);
 	ImGui::SliderFloat("Roation", m_CheckerboardRotation, 0, 360, "%.3f", 1.0f);
 	ImGui::SliderFloat("TilingFactor", m_TilingFactor, 0, 10, "%.3f", 1.0f);
+	ImGui::End();
+
+	ImGui::Begin("Audio test");
+
+	bool playTest2Ch = ImGui::Button("Play 2 channel test audio");
+	if (playTest2Ch) m_AudioPlayer.PlayThreaded("assets/audio/test (2ch).wav");
+
+	bool playTest1Ch = ImGui::Button("Play 1 channel test audio");
+	if (playTest1Ch) m_AudioPlayer.PlayThreaded("assets/audio/test (1ch).wav");
+
 	ImGui::End();
 }
 

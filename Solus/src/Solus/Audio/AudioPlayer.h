@@ -34,10 +34,17 @@ namespace Solus {
 	class audioPlayer
 	{
 	public:
-		audioPlayer();
+		audioPlayer(uint32_t desiredSampleRate = 44100);
 		~audioPlayer() = default;
 
 		void Play(std::string filePath);
+		
+		void PlayThreaded(std::string filePath)
+		{
+			SU_PROFILE_FUNCTION();
+			std::thread audioWorker(&audioPlayer::Play, this, filePath);
+			audioWorker.detach();
+		}
 	private:
 		nqr::NyquistIO m_Loader;
 		Ref<nqr::AudioData> m_FileData;
