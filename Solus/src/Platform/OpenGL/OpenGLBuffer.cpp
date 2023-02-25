@@ -6,6 +6,14 @@
 namespace Solus {
 
 	/*---------------------------------- Vertex Buffer ----------------------------------*/
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+	{
+		SU_PROFILE_FUNCTION();
+		glCreateBuffers(1, &m_RenderID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RenderID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		SU_PROFILE_FUNCTION();
@@ -30,6 +38,12 @@ namespace Solus {
 	{
 		SU_PROFILE_FUNCTION();
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_RenderID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
 	/*---------------------------------- Index Buffer ----------------------------------*/
