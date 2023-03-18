@@ -126,22 +126,22 @@ namespace Solus {
 	{
 		SU_PROFILE_FUNCTION();
 
-		s_Data.squareVertexBufferPtr->position = position;
+		s_Data.squareVertexBufferPtr->position = { position.x - 0.5f, position.y - 0.5f, position.z };
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 0.0f };
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x + size.x, position.y, position.z };
+		s_Data.squareVertexBufferPtr->position = { position.x + size.x - 0.5f, position.y - 0.5f, position.z };
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 0.0f };
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x + size.x, position.y + size.y, position.z };
+		s_Data.squareVertexBufferPtr->position = { position.x + size.x - 0.5f, position.y + size.y - 0.5f, position.z };
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 1.0f };
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x, position.y + size.y, position.z };
+		s_Data.squareVertexBufferPtr->position = { position.x - 0.5f, position.y + size.y - 0.5f, position.z };
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 1.0f };
 		s_Data.squareVertexBufferPtr++;
