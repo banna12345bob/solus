@@ -20,7 +20,7 @@ namespace Solus {
 		WindowProps(const std::string& title = "Solus Application",
 			unsigned int width = 1280,
 			unsigned int height = 720,
-			const char* pathToIcon = "assets/textures/Checkerboard.png",
+			const char* pathToIcon = "",
 			bool fullscreen = false,
 			bool nativeResulution = true)
 			: Title(title), Width(width), Height(height), pathToIcon(pathToIcon), fullscreen(fullscreen), nativeResulution(nativeResulution)

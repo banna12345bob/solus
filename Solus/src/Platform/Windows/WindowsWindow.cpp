@@ -77,10 +77,20 @@ namespace Solus {
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		GLFWimage images[1];
-		images[0].pixels = stbi_load(props.pathToIcon, &images[0].width, &images[0].height, 0, 4); //rgba channels 
-		glfwSetWindowIcon(m_Window, 1, images);
-		stbi_image_free(images[0].pixels);
+		if (props.pathToIcon != "")
+		{
+			GLFWimage images[1];
+			images[0].pixels = stbi_load(props.pathToIcon, &images[0].width, &images[0].height, 0, 4); //rgba channels 
+			if (images[0].pixels)
+			{
+				glfwSetWindowIcon(m_Window, 1, images);
+			}
+			else
+			{
+				SU_CORE_ERROR("Failed to load image: {0}", props.pathToIcon);
+			}
+			stbi_image_free(images[0].pixels);
+		}
 		
 		//Event callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
