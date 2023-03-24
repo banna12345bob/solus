@@ -19,7 +19,7 @@ private:
 
 	Solus::Ref<Solus::VertexArray> m_SquareVA;
 	Solus::Ref<Solus::Shader> m_flatColourShader;
-	Solus::Ref<Solus::Texture> m_CheckerboardTexture;
+	Solus::Ref<Solus::Texture2D> m_CheckerboardTexture;
 
 	Solus::audioPlayer m_AudioPlayer;
 

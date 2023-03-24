@@ -194,6 +194,12 @@ namespace Solus {
 		UploadUniformInt(name, value);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		SU_PROFILE_FUNCTION();
+		UploadUniformIntArray(name, values, count);
+	}
+
 	void OpenGLShader::SetFloat(const std::string& name, float value)
 	{
 		SU_PROFILE_FUNCTION();
@@ -222,6 +228,12 @@ namespace Solus {
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, values);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 	
 	void OpenGLShader::UploadUniformFloat(const std::string& name, float values)

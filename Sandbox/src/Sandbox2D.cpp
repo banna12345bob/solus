@@ -38,7 +38,7 @@ void Sandbox2D::OnUpdate(Solus::Timestep time)
 
 		Solus::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		// Solus::Renderer2D::DrawQuad(glm::vec3(m_CheckerboardPosition[0], m_CheckerboardPosition[1], -0.1f), m_CheckerboardRotation[0], glm::vec2(m_CheckerboardScale[0], m_CheckerboardScale[1]), m_CheckerboardTexture, m_CheckerboardColour, m_TilingFactor[0]);
+		Solus::Renderer2D::DrawQuad(glm::vec3(m_CheckerboardPosition[0], m_CheckerboardPosition[1], -0.1f), m_CheckerboardRotation[0], glm::vec2(m_CheckerboardScale[0], m_CheckerboardScale[1]), m_CheckerboardTexture, m_CheckerboardColour, m_TilingFactor[0]);
 
 		Solus::Renderer2D::DrawQuad(glm::vec2(m_Position[0], m_Position[1]), m_Rotation[0], glm::vec2(m_Scale[0], m_Scale[1]), m_squareColour);
 
