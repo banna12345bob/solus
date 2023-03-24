@@ -6,7 +6,7 @@
 #include <libnyquist/Common.h>
 
 namespace Solus {
-	audioPlayer::audioPlayer(uint32_t desiredSampleRate)
+	void audioPlayer::threadAudioPlayer(uint32_t desiredSampleRate)
 	{
 		SU_PROFILE_FUNCTION();
 #ifdef SU_AUDIO

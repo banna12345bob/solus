@@ -4,6 +4,8 @@
 
 #include <rtaudio/RtAudio.h>
 
+#define SU_AUDIO
+
 namespace Solus {
 
 	struct AudioDeviceInfo
@@ -34,9 +36,13 @@ namespace Solus {
 	class audioPlayer
 	{
 	public:
-		audioPlayer(uint32_t desiredSampleRate = 44100);
+		audioPlayer(uint32_t desiredSampleRate = 44100) {
+			std::thread audioWorker(&audioPlayer::threadAudioPlayer, this, desiredSampleRate);
+			audioWorker.detach();
+		}
 		~audioPlayer() = default;
 
+		void threadAudioPlayer(uint32_t desiredSampleRate);
 		void Play(std::string filePath);
 		
 		void PlayThreaded(std::string filePath)
