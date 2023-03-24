@@ -9,15 +9,20 @@ namespace Solus {
 	audioPlayer::audioPlayer(uint32_t desiredSampleRate)
 	{
 		SU_PROFILE_FUNCTION();
+#ifdef SU_AUDIO
 		m_MyDevice = CreateRef<AudioDevice>(CHANNELS, desiredSampleRate);
 		m_MyDevice->Open(m_MyDevice->info.id);
 		m_FileData = CreateRef<nqr::AudioData>();
+#else
+		return;
+#endif
 	}
 
 	// Implimented for libnyquist example
 	void audioPlayer::Play(std::string filePath)
 	{
 		SU_PROFILE_FUNCTION();
+#ifdef SU_AUDIO
 		try {
 			auto memory = nqr::ReadFile(filePath);
 			std::string extension = filePath.substr(filePath.find(".") + 1);
@@ -52,6 +57,10 @@ namespace Solus {
 		{
 			SU_CORE_FATAL("Caught: {0}", e.what());
 		}
+#else
+		SU_CORE_WARN("Audio Player not enabled. Enable with compile flag SU_AUDIO");
+		return;
+#endif
 	}
 
 	static RingBufferT<float> buffer(BUFFER_LENGTH);

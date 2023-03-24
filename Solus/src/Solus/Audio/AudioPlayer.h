@@ -42,8 +42,13 @@ namespace Solus {
 		void PlayThreaded(std::string filePath)
 		{
 			SU_PROFILE_FUNCTION();
+#ifdef SU_AUDIO
 			std::thread audioWorker(&audioPlayer::Play, this, filePath);
 			audioWorker.detach();
+#else
+			SU_CORE_WARN("Audio Player not enabled. Enable with compile flag SU_AUDIO");
+			return;
+#endif
 		}
 	private:
 		nqr::NyquistIO m_Loader;
