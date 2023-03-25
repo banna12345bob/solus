@@ -37,6 +37,8 @@ namespace Solus {
 
 		std::array<Ref<Texture2D>, maxTextureSlots> textureSlots;
 		uint32_t textureSlotIndex = 1;
+
+		glm::vec4 quadVertexPosition[4];
 	};
 
 	static Renderer2DData s_Data;	
@@ -99,6 +101,11 @@ namespace Solus {
 		s_Data.TextureShader->SetIntArray("u_Texture", samplers, s_Data.maxTextureSlots);
 
 		s_Data.textureSlots[0] = s_Data.WhiteTexture;
+
+		s_Data.quadVertexPosition[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+		s_Data.quadVertexPosition[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
+		s_Data.quadVertexPosition[2] = { 0.5f,  0.5f, 0.0f, 1.0f };
+		s_Data.quadVertexPosition[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 	}
 
 	void Renderer2D::Shutdown()
@@ -149,44 +156,39 @@ namespace Solus {
 		
 		const float tilingFactor = 1.0f;
 
-		s_Data.squareVertexBufferPtr->position = { position.x - (size.x / 2), position.y - (size.y / 2), position.z };
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[0];
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 0.0f };
 		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		//s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
+		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x + size.x - (size.x / 2), position.y - (size.y / 2), position.z };
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[1];
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 0.0f };
 		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		//s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
+		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x + size.x - (size.x / 2), position.y + size.y - (size.y / 2), position.z };
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[2];
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 1.0f };
 		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		//s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
+		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x - (size.x / 2), position.y + size.y - (size.y / 2), position.z };
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[3];
 		s_Data.squareVertexBufferPtr->colour = colour;
 		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 1.0f };
 		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		//s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
+		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 		s_Data.squareVertexBufferPtr++;
 
 		s_Data.squareIndexCount += 6;
-
-		/*s_Data.WhiteTexture->Bind();
-
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
-			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		s_Data.TextureShader->SetMat4("u_Transform", transform);
-
-		s_Data.QuadVertexArray->Bind();
-		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);*/
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tintColour, const float tilingFactor)
@@ -215,28 +217,32 @@ namespace Solus {
 			s_Data.textureSlotIndex++;
 		}
 
-		s_Data.squareVertexBufferPtr->position = { position.x - (size.x/2), position.y - (size.y / 2), position.z };
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[0];
 		s_Data.squareVertexBufferPtr->colour = tintColour;
 		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 0.0f };
 		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
 		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x + size.x - (size.x / 2), position.y - (size.y / 2), position.z };
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[1];
 		s_Data.squareVertexBufferPtr->colour = tintColour;
 		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 0.0f };
 		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
 		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x + size.x - (size.x / 2), position.y + size.y - (size.y / 2), position.z };
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[2];
 		s_Data.squareVertexBufferPtr->colour = tintColour;
 		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 1.0f };
 		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
 		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 		s_Data.squareVertexBufferPtr++;
 
-		s_Data.squareVertexBufferPtr->position = { position.x - (size.x / 2), position.y + size.y - (size.y / 2), position.z };
+		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[3];
 		s_Data.squareVertexBufferPtr->colour = tintColour;
 		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 1.0f };
 		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
@@ -244,18 +250,6 @@ namespace Solus {
 		s_Data.squareVertexBufferPtr++;
 
 		s_Data.squareIndexCount += 6;
-
-		/*s_Data.TextureShader->SetFloat4("u_Colour", colour);
-		s_Data.TextureShader->SetFloat("u_TilingFactor", tilingFactor);
-
-		texture->Bind();
-
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
-			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		s_Data.TextureShader->SetMat4("u_Transform", transform);
-
-		s_Data.QuadVertexArray->Bind();
-		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);*/
 	}
 
 }
