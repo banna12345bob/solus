@@ -131,7 +131,7 @@ namespace Solus {
 	{
 		SU_PROFILE_FUNCTION();
 
-		uint32_t dataSize = (uint8_t*)s_Data.squareVertexBufferPtr - (uint8_t*)s_Data.squareVertexBufferBase;
+		uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.squareVertexBufferPtr - (uint8_t*)s_Data.squareVertexBufferBase);
 		s_Data.QuadVertexBuffer->SetData(s_Data.squareVertexBufferBase, dataSize);
 
 		Flush();
@@ -220,6 +220,9 @@ namespace Solus {
 
 		if (textureIndex == 0.0f)
 		{
+			if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
+				FlushAndReset();
+
 			textureIndex = (float)s_Data.textureSlotIndex;
 			s_Data.textureSlots[s_Data.textureSlotIndex] = texture;
 			s_Data.textureSlotIndex++;
