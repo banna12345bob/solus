@@ -19,6 +19,21 @@ namespace Solus {
 		static void DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const glm::vec4& colour);
 		static void DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tintColour = glm::vec4(1.0f), const float tilingFactor = 1.0f);
 		static void DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tintColour = glm::vec4(1.0f), const float tilingFactor = 1.0f);
+		
+		// Stats
+		struct Statistics
+		{
+			uint32_t DrawCalls = 0;
+			uint32_t squareCount = 0;
+
+			uint32_t GetTotalVertexCount() { return squareCount * 4; }
+			uint32_t GetTotalIndexCount() { return squareCount * 6; }
+		};
+		static void ResetStats();
+		static Statistics GetStats();
+	private:
+		static void FlushAndReset();
+	
 	};
 
 }

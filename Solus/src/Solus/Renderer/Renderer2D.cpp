@@ -20,9 +20,9 @@ namespace Solus {
 
 	struct Renderer2DData
 	{
-		const uint32_t maxQuads = 10000;
-		const uint32_t maxVerticies = maxQuads * 4;
-		const uint32_t maxIndices = maxQuads * 6;
+		static const uint32_t maxQuads = 20000;
+		static const uint32_t maxVerticies = maxQuads * 4;
+		static const uint32_t maxIndices = maxQuads * 6;
 		static const uint32_t maxTextureSlots = 32;
 
 		Ref<VertexArray> QuadVertexArray;
@@ -39,6 +39,8 @@ namespace Solus {
 		uint32_t textureSlotIndex = 1;
 
 		glm::vec4 quadVertexPosition[4];
+
+		Renderer2D::Statistics Stats;
 	};
 
 	static Renderer2DData s_Data;	
@@ -141,6 +143,17 @@ namespace Solus {
 			s_Data.textureSlots[i]->Bind(i);
 
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.squareIndexCount);
+		s_Data.Stats.DrawCalls++;
+	}
+
+	void Renderer2D::FlushAndReset()
+	{
+		EndScene();
+
+		s_Data.squareIndexCount = 0;
+		s_Data.squareVertexBufferPtr = s_Data.squareVertexBufferPtr;
+
+		s_Data.textureSlotIndex = 1;
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const glm::vec4& colour)
@@ -151,6 +164,9 @@ namespace Solus {
 	void Renderer2D::DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const glm::vec4& colour)
 	{
 		SU_PROFILE_FUNCTION();
+
+		if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
+			FlushAndReset();
 
 		const float texIndex = 0.0f;
 		
@@ -189,6 +205,7 @@ namespace Solus {
 		s_Data.squareVertexBufferPtr++;
 
 		s_Data.squareIndexCount += 6;
+		s_Data.Stats.squareCount++;
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tintColour, const float tilingFactor)
@@ -199,6 +216,9 @@ namespace Solus {
 	void Renderer2D::DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tintColour, const float tilingFactor)
 	{
 		SU_PROFILE_FUNCTION();
+
+		if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
+			FlushAndReset();
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.textureSlotIndex; i++)
@@ -250,6 +270,17 @@ namespace Solus {
 		s_Data.squareVertexBufferPtr++;
 
 		s_Data.squareIndexCount += 6;
+		s_Data.Stats.squareCount++;
+	}
+
+	void Renderer2D::ResetStats()
+	{
+		memset(&s_Data.Stats, 0, sizeof(Statistics));
+	}
+
+	Renderer2D::Statistics Renderer2D::GetStats()
+	{
+		return s_Data.Stats;
 	}
 
 }

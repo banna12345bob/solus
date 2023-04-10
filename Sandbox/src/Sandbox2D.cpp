@@ -26,6 +26,8 @@ void Sandbox2D::OnUpdate(Solus::Timestep time)
 
 	m_CameraController.OnUpdate(time);
 
+	Solus::Renderer2D::ResetStats();
+
 	{
 		SU_PROFILE_SCOPE("Renderer Prep");
 
@@ -74,6 +76,13 @@ void Sandbox2D::OnImGuiRender()
 	if (playTest1Ch) m_AudioPlayer.PlayThreaded("assets/audio/test (1ch).wav");
 
 	ImGui::End();
+
+	auto stats = Solus::Renderer2D::GetStats();
+	ImGui::Text("Renderer2D Stats:");
+	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+	ImGui::Text("Quads: %d", stats.squareCount);
+	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 }
 
 void Sandbox2D::OnEvent(Solus::Event& event)
