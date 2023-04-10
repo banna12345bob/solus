@@ -33,12 +33,22 @@
 #endif
 
 #ifdef SU_DEBUG
-	#define SU_ENABLE_ASSERTS
+	#if defined(SU_PLATFORM_WINDOWS)
+		#define SU_DEBUGBREAK() __debugbreak()
+	#elif defined(SU_PLATFORM_LINUX)
+		#include <signal.h>
+		#define SU_DEBUGBREAK() raise(SIGTRAP)
+	#else
+		#error "Platform doesn't support debugbreak yet!"
+	#endif
+		#define SU_ENABLE_ASSERTS
+	#else
+	#define SU_DEBUGBREAK()
 #endif
 
 #ifdef SU_ENABLE_ASSERTS
-#define SU_ASSERT(x, ...) { if(!(x)) { SU_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#define SU_CORE_ASSERT(x, ...) { if(!(x)) { SU_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define SU_ASSERT(x, ...) { if(!(x)) { SU_ERROR("Assertion Failed: {0}", __VA_ARGS__); SU_DEBUGBREAK(); } }
+#define SU_CORE_ASSERT(x, ...) { if(!(x)) { SU_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); SU_DEBUGBREAK(); } }
 #else
 #define SU_ASSERT(x, ...)
 #define SU_CORE_ASSERT(x, ...)
