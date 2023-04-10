@@ -113,6 +113,7 @@ namespace Solus {
 	void Renderer2D::Shutdown()
 	{
 		SU_PROFILE_FUNCTION();
+		delete[] s_Data.squareVertexBufferBase;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
