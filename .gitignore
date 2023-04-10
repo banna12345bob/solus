@@ -9,6 +9,12 @@ bin-int/
 *filters
 *user
 *.ini
+*.pbxproj
+
+# MacOS specific
+*.DS_Store
+*.xcodeproj
+*.xcworkspace
 
 # Profiling
 Sandbox/SolusProfile-Runtime.json

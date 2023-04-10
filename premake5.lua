@@ -39,8 +39,8 @@ project "Solus"
 	targetdir ("compile/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("compile/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "supch.h"
-	pchsource "Solus/src/supch.cpp"
+	-- pchheader "supch.h"
+	-- pchsource "Solus/src/supch.cpp"
 
 	files
 	{
@@ -79,12 +79,17 @@ project "Solus"
 
 	filter "system:windows"
 		systemversion "latest"
+		pchheader "supch.h"
+		pchsource "Solus/src/supch.cpp"
 
 	filter "system:linux"
 		systemversion "latest"
 
 	filter "system:macosx"
 		systemversion "latest"
+        xcodebuildsettings { ["ALWAYS_SEARCH_USER_PATHS"] = "YES" }
+		pchheader "src/supch.h"
+		pchsource "Solus/src/supch.cpp"
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
@@ -142,6 +147,7 @@ project "Sandbox"
 
 	filter "system:macosx"
 		systemversion "latest"
+        xcodebuildsettings { ["ALWAYS_SEARCH_USER_PATHS"] = "YES" }
 
 	filter "configurations:Debug"
 		defines "SU_DEBUG"
