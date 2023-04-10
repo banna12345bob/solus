@@ -140,6 +140,9 @@ namespace Solus {
 
 	void Renderer2D::Flush()
 	{
+		if (s_Data.squareIndexCount == 0)
+			return; // Nothing to draw
+
 		for (uint32_t i = 0; i < s_Data.textureSlotIndex; i++)
 			s_Data.textureSlots[i]->Bind(i);
 
