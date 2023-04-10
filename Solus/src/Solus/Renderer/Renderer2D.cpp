@@ -168,6 +168,9 @@ namespace Solus {
 		if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
 			FlushAndReset();
 
+		constexpr size_t squareVertexCount = 4;
+		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+
 		const float texIndex = 0.0f;
 		
 		const float tilingFactor = 1.0f;
@@ -176,33 +179,15 @@ namespace Solus {
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[0];
-		s_Data.squareVertexBufferPtr->colour = colour;
-		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 0.0f };
-		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
-
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[1];
-		s_Data.squareVertexBufferPtr->colour = colour;
-		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 0.0f };
-		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
-
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[2];
-		s_Data.squareVertexBufferPtr->colour = colour;
-		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 1.0f };
-		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
-
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[3];
-		s_Data.squareVertexBufferPtr->colour = colour;
-		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 1.0f };
-		s_Data.squareVertexBufferPtr->texIndex = texIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
+		for (size_t i = 0; i < squareVertexCount; i++)
+		{
+			s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[i];
+			s_Data.squareVertexBufferPtr->colour = colour;
+			s_Data.squareVertexBufferPtr->texCoord = textureCoords[i];
+			s_Data.squareVertexBufferPtr->texIndex = texIndex;
+			s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
+			s_Data.squareVertexBufferPtr++;
+		}
 
 		s_Data.squareIndexCount += 6;
 		s_Data.Stats.squareCount++;
@@ -219,6 +204,9 @@ namespace Solus {
 
 		if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
 			FlushAndReset();
+
+		constexpr size_t squareVertexCount = 4;
+		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.textureSlotIndex; i++)
@@ -241,33 +229,15 @@ namespace Solus {
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[0];
-		s_Data.squareVertexBufferPtr->colour = tintColour;
-		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 0.0f };
-		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
-
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[1];
-		s_Data.squareVertexBufferPtr->colour = tintColour;
-		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 0.0f };
-		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
-
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[2];
-		s_Data.squareVertexBufferPtr->colour = tintColour;
-		s_Data.squareVertexBufferPtr->texCoord = { 1.0f, 1.0f };
-		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
-
-		s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[3];
-		s_Data.squareVertexBufferPtr->colour = tintColour;
-		s_Data.squareVertexBufferPtr->texCoord = { 0.0f, 1.0f };
-		s_Data.squareVertexBufferPtr->texIndex = textureIndex;
-		s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
-		s_Data.squareVertexBufferPtr++;
+		for (size_t i = 0; i < squareVertexCount; i++)
+		{
+			s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[i];
+			s_Data.squareVertexBufferPtr->colour = tintColour;
+			s_Data.squareVertexBufferPtr->texCoord = textureCoords[i];
+			s_Data.squareVertexBufferPtr->texIndex = textureIndex;
+			s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
+			s_Data.squareVertexBufferPtr++;
+		}
 
 		s_Data.squareIndexCount += 6;
 		s_Data.Stats.squareCount++;
