@@ -209,8 +209,17 @@ namespace Solus {
 		if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
 			FlushAndReset();
 
+		constexpr float x = 5, y = 8;
+		constexpr float sheetWidth = 192.0f, sheetHeight = 176.0f;
+		constexpr float spriteWidth = 16.0f, spriteHeight = 16.0f;
+
 		constexpr size_t squareVertexCount = 4;
-		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+		constexpr glm::vec2 textureCoords[] = {
+			{ (x * spriteWidth) / sheetWidth, (y * spriteHeight) / sheetHeight},
+			{ ((x + 1) * spriteWidth) / sheetWidth, (y * spriteHeight) / sheetHeight},
+			{ ((x + 1) * spriteWidth) / sheetWidth, ((y + 1) * spriteHeight) / sheetHeight},
+			{ (x * spriteWidth) / sheetWidth, ((y + 1) * spriteHeight) / sheetHeight}
+		};
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.textureSlotIndex; i++)
