@@ -21,6 +21,7 @@ private:
 	Solus::Ref<Solus::Shader> m_flatColourShader;
 	Solus::Ref<Solus::Texture2D> m_CheckerboardTexture;
 	Solus::Ref<Solus::Texture2D> m_Tilesheet;
+	Solus::Ref<Solus::SubTexture2D> m_TextureMushrooms, m_TextureTree;
 
 	Solus::audioPlayer m_AudioPlayer;
 

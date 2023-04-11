@@ -26,6 +26,7 @@
 #include "Solus/Renderer/RenderCommand.h"
 #include "Solus/Renderer/Shader.h"
 #include "Solus/Renderer/Texture.h"
+#include "Solus/Renderer/SubTexture2D.h"
 #include "Solus/Renderer/GraphicsContext.h"
 #include "Solus/Renderer/Buffer.h"
 #include "Solus/Renderer/VertexArray.h"
