@@ -6,21 +6,21 @@
 
 static const uint32_t s_MapWidth = 24;
 static const char* s_MapTiles = 
+"gggggtgggPPPgggggtgggggg"
+"gggtggggPPPggggggggggggg"
+"gggggggggPPPggtggggggggg"
+"gggggggggPPPgggggggggggg"
+"gmggggggPPPggggggggggggg"
+"ggggDFggPPPggggtggmggggg"
+"gggggggggPPPgggggggggggg"
+"ggggggggggPPPgggggtggggg"
+"ggmggggggPPPgggmtggggggg"
 "gggggggggPPPgggggggggggg"
 "ggggggggPPPggggggggggggg"
+"gggggggggPPPggmggggggggg"
 "gggggggggPPPgggggggggggg"
-"gggggggggPPPgggggggggggg"
-"ggggggggPPPggggggggggggg"
-"ggggggggPPPggggggggggggg"
-"gggggggggPPPgggggggggggg"
+"ggmgggggggPPPggggggggggg"
 "ggggggggggPPPggggggggggg"
-"gggggggggPPPgggggggggggg"
-"gggggggggPPPgggggggggggg"
-"ggggggggPPPggggggggggggg"
-"gggggggggPPPgggggggggggg"
-"gggggggggPPPgggggggggggg"
-"ggggggggggPPPggggggggggg"
-"ggggggggggPPPgggggHggggg"
 "gggggggggPPPgggggggggggg";
 
 Sandbox2D::Sandbox2D()
@@ -32,15 +32,19 @@ void Sandbox2D::OnAttach()
 {
 	SU_PROFILE_FUNCTION();
 	m_CheckerboardTexture = Solus::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_OakLogTexture = Solus::Texture2D::Create("assets/textures/Oak_Log.png");
 	m_Tilesheet = Solus::Texture2D::Create("assets/textures/game/kenny_tiny_town.png");
-	m_TextureTree = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 4, 9 }, { 16, 16 }, { 1, 2 });
-	m_TextureMushrooms = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 5, 8 }, { 16, 16 });
+
+	m_TextureCheckerboard = Solus::SubTexture2D::CreateFromCoords(m_CheckerboardTexture, { 0,0 }, { 64, 64 });
 
 	m_MapWidth = s_MapWidth;
 	m_MapHeight = strlen(s_MapTiles) / m_MapWidth;
 
 	s_TextureMap['P'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 7, 7 }, { 16, 16 });
 	s_TextureMap['g'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, {0, 10}, {16, 16});
+	s_TextureMap['m'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, {5, 8}, {16, 16});
+	s_TextureMap['t'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, {4, 9}, {16, 16}, {1, 2});
+
 
 	m_CameraController.SetZoomLevel(5.0f);
 }
@@ -79,16 +83,6 @@ void Sandbox2D::OnUpdate(Solus::Timestep time)
 
 		Solus::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		for (float y = 0; y <= m_CameraController.getBounds().Top; y++)
-		{
-			//SU_WARN("{0}", y);
-			for (float x = 0; x <= m_CameraController.getBounds().Right; x++)
-			{
-				//SU_INFO("{0}", x);
-				Solus::Renderer2D::DrawQuad({ x, y }, 0.0f, { 1.0f, 1.0f }, s_TextureMap['g']);
-			}
-		}
-
 		for (uint32_t y = 0; y < m_MapHeight; y++)
 		{
 			for (uint32_t x = 0; x < m_MapWidth; x++)
@@ -98,19 +92,20 @@ void Sandbox2D::OnUpdate(Solus::Timestep time)
 				{
 					Solus::Ref<Solus::SubTexture2D> texture;
 
-					if (s_TextureMap.find(tileType) != s_TextureMap.end())
-						texture = s_TextureMap[tileType];
-					else
-						texture = m_TextureMushrooms;
+					if (auto found = s_TextureMap.find(tileType); found != s_TextureMap.end())
+						texture = found->second;
+					else 
+						texture = m_TextureCheckerboard;
 
-					Solus::Renderer2D::DrawQuad({ x - m_MapWidth / 2.0f, m_MapHeight - y - m_MapHeight / 2.0f }, 0.0f, { 1.0f, 1.0f }, texture);
+					Solus::Renderer2D::DrawQuad({ x - m_MapWidth / 2.0f, m_MapHeight - y - m_MapHeight / 2.0f - ( 1 / texture->GetSpriteSize().y)}, 0.0f, texture->GetSpriteSize(), texture);
 				}
 			}
 		}
+		glm::vec3 camPos = { -m_CameraController.getPosition().x, -m_CameraController.getPosition().y, -0.3f };
+		glm::vec2 camScale = { m_CameraController.getBounds().Right - m_CameraController.getBounds().Left, m_CameraController.getBounds().Top - m_CameraController.getBounds().Bottom };
+		Solus::Renderer2D::DrawQuad(camPos, 0.0f, camScale, s_TextureMap['g']);
 
-		/*Solus::Renderer2D::DrawQuad({ 1.0f, 0.0f }, 0.0f, { 1.0f, 1.0f }, m_TextureGrass);
-		Solus::Renderer2D::DrawQuad({ 0.0f, 0.0f }, 0.0f, { 1.0f, 1.0f }, m_TexturePath);
-		Solus::Renderer2D::DrawQuad({-1.0f, 0.0f}, 0.0f, {1.0f, 2.0f}, m_TextureTree);*/
+		Solus::Renderer2D::DrawQuad(glm::vec2(m_Position[0], m_Position[1]), 0, glm::vec2(1, 2), s_TextureMap['t']);
 
 		Solus::Renderer2D::EndScene();
 	}

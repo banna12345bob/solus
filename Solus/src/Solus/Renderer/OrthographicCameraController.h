@@ -31,6 +31,7 @@ namespace Solus {
 		void SetZoomLevel(float level) { m_ZoomLevel = level; CaculateView(); }
 
 		const OrthographicCameraBounds& getBounds() const { return m_Bounds; }
+		const glm::vec3& getPosition() const { return m_CameraPosition; }
 	private:
 		void CaculateView();
 

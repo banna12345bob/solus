@@ -19,9 +19,9 @@ private:
 
 	Solus::Ref<Solus::VertexArray> m_SquareVA;
 	Solus::Ref<Solus::Shader> m_flatColourShader;
-	Solus::Ref<Solus::Texture2D> m_CheckerboardTexture;
+	Solus::Ref<Solus::Texture2D> m_CheckerboardTexture, m_OakLogTexture;
 	Solus::Ref<Solus::Texture2D> m_Tilesheet;
-	Solus::Ref<Solus::SubTexture2D> m_TextureGrass, m_TextureTree, m_TexturePath, m_TextureMushrooms;
+	Solus::Ref<Solus::SubTexture2D> m_TextureCheckerboard;
 
 	Solus::audioPlayer m_AudioPlayer;
 

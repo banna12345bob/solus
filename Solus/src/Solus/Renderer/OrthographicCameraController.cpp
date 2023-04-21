@@ -20,27 +20,23 @@ namespace Solus {
 			if (Input::IsKeyPressed(SU_KEY_D))
 			{
 				m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-				m_Bounds = { -m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, -m_ZoomLevel - m_CameraPosition.y, m_ZoomLevel - m_CameraPosition.y };
 			}
 
 			else if (Input::IsKeyPressed(SU_KEY_A))
 			{
 				m_CameraPosition.x += m_CameraTranslationSpeed * ts;
-				m_Bounds = { -m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, -m_ZoomLevel - m_CameraPosition.y, m_ZoomLevel - m_CameraPosition.y };
 			}
 
 
 			if (Input::IsKeyPressed(SU_KEY_S))
 			{
 				m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-				m_Bounds = { -m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, -m_ZoomLevel - m_CameraPosition.y, m_ZoomLevel - m_CameraPosition.y };
 			}
 
 
 			else if (Input::IsKeyPressed(SU_KEY_W))
 			{
 				m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
-				m_Bounds = { -m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, m_AspectRatio * m_ZoomLevel - m_CameraPosition.x, -m_ZoomLevel - m_CameraPosition.y, m_ZoomLevel - m_CameraPosition.y };
 			}
 		}
 
