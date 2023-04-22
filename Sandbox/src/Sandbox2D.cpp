@@ -4,25 +4,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-static const uint32_t s_MapWidth = 24;
-static const char* s_MapTiles = 
-"gggggtgggPPPgggggtgggggg"
-"gggtggggPPPggggggggggggg"
-"gggggggggPPPggtggggggggg"
-"gggggggggPPPgggggggggggg"
-"gmggggggPPPggggggggggggg"
-"ggggDFggPPPggggtggmggggg"
-"gggggggggPPPgggggggggggg"
-"ggggggggggPPPgggggtggggg"
-"ggmggggggPPPgggmtggggggg"
-"gggggggggPPPgggggggggggg"
-"ggggggggPPPggggggggggggg"
-"gggggggggPPPggmggggggggg"
-"gggggggggPPPgggggggggggg"
-"ggmgggggggPPPggggggggggg"
-"ggggggggggPPPggggggggggg"
-"gggggggggPPPgggggggggggg";
-
 Sandbox2D::Sandbox2D()
 	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f)
 {
@@ -37,14 +18,10 @@ void Sandbox2D::OnAttach()
 
 	m_TextureCheckerboard = Solus::SubTexture2D::CreateFromCoords(m_CheckerboardTexture, { 0,0 }, { 64, 64 });
 
-	m_MapWidth = s_MapWidth;
-	m_MapHeight = strlen(s_MapTiles) / m_MapWidth;
-
-	s_TextureMap['P'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 7, 7 }, { 16, 16 });
-	s_TextureMap['g'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, {0, 10}, {16, 16});
-	s_TextureMap['m'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, {5, 8}, {16, 16});
-	s_TextureMap['t'] = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, {4, 9}, {16, 16}, {1, 2});
-
+	m_TextureTree = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 4, 9 }, { 16, 16 }, { 1, 2 });
+	m_TextureMushrooms = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 5, 8 }, { 16, 16 });
+	m_TextureGrass = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 0, 10 }, { 16, 16 });
+	m_TexturePath = Solus::SubTexture2D::CreateFromCoords(m_Tilesheet, { 7, 7 }, { 16, 16 });
 
 	m_CameraController.SetZoomLevel(5.0f);
 }
@@ -83,29 +60,15 @@ void Sandbox2D::OnUpdate(Solus::Timestep time)
 
 		Solus::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		for (uint32_t y = 0; y < m_MapHeight; y++)
-		{
-			for (uint32_t x = 0; x < m_MapWidth; x++)
-			{
-				char tileType = s_MapTiles[x + y * m_MapWidth];
-				if (tileType != 'g')
-				{
-					Solus::Ref<Solus::SubTexture2D> texture;
-
-					if (auto found = s_TextureMap.find(tileType); found != s_TextureMap.end())
-						texture = found->second;
-					else 
-						texture = m_TextureCheckerboard;
-
-					Solus::Renderer2D::DrawQuad({ x - m_MapWidth / 2.0f, m_MapHeight - y - m_MapHeight / 2.0f - ( 1 / texture->GetSpriteSize().y)}, 0.0f, texture->GetSpriteSize(), texture);
-				}
-			}
-		}
 		glm::vec3 camPos = { -m_CameraController.getPosition().x, -m_CameraController.getPosition().y, -0.3f };
 		glm::vec2 camScale = { m_CameraController.getBounds().Right - m_CameraController.getBounds().Left, m_CameraController.getBounds().Top - m_CameraController.getBounds().Bottom };
-		Solus::Renderer2D::DrawQuad(camPos, 0.0f, camScale, s_TextureMap['g']);
+		Solus::Renderer2D::DrawQuad(camPos, 0.0f, camScale, m_TextureGrass);
 
-		Solus::Renderer2D::DrawQuad(glm::vec2(m_Position[0], m_Position[1]), 0, glm::vec2(1, 2), s_TextureMap['t']);
+		Solus::Renderer2D::DrawQuad({ 0, 0 }, 0.0f, { 1, 1 }, m_TextureMushrooms);
+		Solus::Renderer2D::DrawQuad({ 1, 0 }, 0.0f, { 1, 1 }, m_TexturePath);
+		Solus::Renderer2D::DrawQuad({ -1, 0.5 }, 0.0f, { 1, 2 }, m_TextureTree);
+
+		Solus::Renderer2D::DrawQuad({ m_CheckerboardPosition[0], m_CheckerboardPosition[1], -0.2}, m_CheckerboardRotation[0], {m_CheckerboardScale[0], m_CheckerboardScale[1]}, m_CheckerboardTexture);
 
 		Solus::Renderer2D::EndScene();
 	}

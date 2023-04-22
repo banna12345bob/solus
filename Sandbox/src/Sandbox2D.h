@@ -21,6 +21,7 @@ private:
 	Solus::Ref<Solus::Shader> m_flatColourShader;
 	Solus::Ref<Solus::Texture2D> m_CheckerboardTexture, m_OakLogTexture;
 	Solus::Ref<Solus::Texture2D> m_Tilesheet;
+	Solus::Ref<Solus::SubTexture2D> m_TextureGrass, m_TextureTree, m_TexturePath, m_TextureMushrooms;
 	Solus::Ref<Solus::SubTexture2D> m_TextureCheckerboard;
 
 	Solus::audioPlayer m_AudioPlayer;
@@ -34,7 +35,4 @@ private:
 	float m_TilingFactor[1] = { 1.0f };
 	glm::vec4 m_squareColour = { 0.2f, 0.3f, 0.8f, 1.0f };
 	glm::vec4 m_CheckerboardColour = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-	uint32_t m_MapWidth, m_MapHeight;
-	std::unordered_map<char, Solus::Ref<Solus::SubTexture2D>> s_TextureMap;
 };
