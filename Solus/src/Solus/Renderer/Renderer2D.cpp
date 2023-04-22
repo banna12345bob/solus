@@ -210,7 +210,12 @@ namespace Solus {
 			FlushAndReset();
 
 		constexpr size_t squareVertexCount = 4;
-		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+		constexpr glm::vec2 textureCoords[] = {
+			{ 0.0f, 0.0f },
+			{ 1.0f, 0.0f },
+			{ 1.0f, 1.0f },
+			{ 0.0f, 1.0f }
+		};
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.textureSlotIndex; i++)
@@ -241,6 +246,58 @@ namespace Solus {
 			s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[i];
 			s_Data.squareVertexBufferPtr->colour = tintColour;
 			s_Data.squareVertexBufferPtr->texCoord = textureCoords[i];
+			s_Data.squareVertexBufferPtr->texIndex = textureIndex;
+			s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
+			s_Data.squareVertexBufferPtr++;
+		}
+
+		s_Data.squareIndexCount += 6;
+		s_Data.Stats.squareCount++;
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2& position, const float& rotation, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, const glm::vec4& tintColour, const float tilingFactor)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, rotation, size, subTexture, tintColour, tilingFactor);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const float& rotation, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, const glm::vec4& tintColour, const float tilingFactor)
+	{
+		SU_PROFILE_FUNCTION();
+
+		if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
+			FlushAndReset();
+
+		constexpr size_t squareVertexCount = 4;
+
+		float textureIndex = 0.0f;
+		for (uint32_t i = 1; i < s_Data.textureSlotIndex; i++)
+		{
+			if (*s_Data.textureSlots[i].get() == *subTexture->GetTexture().get())
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0.0f)
+		{
+			if (s_Data.squareIndexCount >= Renderer2DData::maxIndices)
+				FlushAndReset();
+
+			textureIndex = (float)s_Data.textureSlotIndex;
+			s_Data.textureSlots[s_Data.textureSlotIndex] = subTexture->GetTexture();
+			s_Data.textureSlotIndex++;
+		}
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		for (size_t i = 0; i < squareVertexCount; i++)
+		{
+			s_Data.squareVertexBufferPtr->position = transform * s_Data.quadVertexPosition[i];
+			s_Data.squareVertexBufferPtr->colour = tintColour;
+			s_Data.squareVertexBufferPtr->texCoord = subTexture->GetTextureCoords()[i];
 			s_Data.squareVertexBufferPtr->texIndex = textureIndex;
 			s_Data.squareVertexBufferPtr->tilingFactor = tilingFactor;
 			s_Data.squareVertexBufferPtr++;
