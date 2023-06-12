@@ -24,7 +24,7 @@ private:
 	Solus::Ref<Solus::SubTexture2D> m_TextureGrass, m_TextureTree, m_TexturePath, m_TextureMushrooms;
 	Solus::Ref<Solus::SubTexture2D> m_TextureCheckerboard;
 
-	Solus::audioPlayer m_AudioPlayer;
+	//Solus::audioPlayer m_AudioPlayer;
 
 	float m_Position[2] = { 0.0f, 0.0f };
 	float m_CheckerboardPosition[2] = {0.0f, 0.0f};

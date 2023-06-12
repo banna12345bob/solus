@@ -96,10 +96,10 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::Begin("Audio test");
 
 	bool playTest2Ch = ImGui::Button("Play STEREO test audio");
-	if (playTest2Ch) m_AudioPlayer.PlayThreaded("assets/audio/test (2ch).wav");
+	if (playTest2Ch) SU_CORE_ERROR("Audio not implimented yet");
 
 	bool playTest1Ch = ImGui::Button("Play MONO test audio");
-	if (playTest1Ch) m_AudioPlayer.PlayThreaded("assets/audio/test (1ch).wav");
+	if (playTest1Ch) SU_CORE_ERROR("Audio not implimented yet");
 
 	ImGui::End();
 

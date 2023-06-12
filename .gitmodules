@@ -13,6 +13,6 @@
 [submodule "Solus/vendor/libnyquist"]
 	path = Solus/vendor/libnyquist
 	url = https://github.com/banna12345bob/libnyquist
-[submodule "Solus/vendor/sdl"]
-	path = Solus/vendor/sdl
-	url = https://github.com/banna12345bob/SDL/
+[submodule "solus/vendor/sdl2"]
+	path = solus/vendor/sdl2
+	url = https://github.com/SpookyScaryStudios/SDL2
