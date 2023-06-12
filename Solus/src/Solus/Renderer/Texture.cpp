@@ -3,6 +3,7 @@
 
 #include "Solus/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
+#include "Platform/SDL/SDLTexture.h"
 
 namespace Solus {
 
@@ -12,6 +13,7 @@ namespace Solus {
 		{
 			case RenderAPI::API::None:    SU_CORE_ASSERT(false, "RenderAPI::None is currently not supported!"); return nullptr;
 			case RenderAPI::API::OpenGL:  return CreateRef<OpenGLTexture2D>(width, height);
+			case RenderAPI::API::SDL:     return CreateRef<SDLTexture2D>(width, height);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown RenderAPI!");
@@ -24,6 +26,7 @@ namespace Solus {
 		{
 			case RenderAPI::API::None:    SU_CORE_ASSERT(false, "RenderAPI::None is currently not supported!"); return nullptr;
 			case RenderAPI::API::OpenGL:  return CreateRef<OpenGLTexture2D>(path);
+			case RenderAPI::API::SDL:     return CreateRef<SDLTexture2D>(path);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown RenderAPI!");

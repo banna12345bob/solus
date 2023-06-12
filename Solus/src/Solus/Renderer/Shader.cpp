@@ -3,6 +3,7 @@
 
 #include "Solus/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Platform/SDL/SDLShader.h"
 
 namespace Solus {
 	Ref<Shader> Shader::Create(const std::string& filepath)
@@ -11,6 +12,7 @@ namespace Solus {
 		{
 		case RenderAPI::API::None:    SU_CORE_ASSERT(false, "RenderAPI::None is currently not supported!"); return nullptr;
 		case RenderAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
+		case RenderAPI::API::SDL:     return CreateRef<SDLShader>(filepath);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown RenderAPI!");
@@ -23,6 +25,7 @@ namespace Solus {
 		{
 			case RenderAPI::API::None:    SU_CORE_ASSERT(false, "RenderAPI::None is currently not supported!"); return nullptr;
 			case RenderAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
+			case RenderAPI::API::SDL:     return CreateRef<SDLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		SU_CORE_ASSERT(false, "Unknown RenderAPI!");
